@@ -14,6 +14,8 @@ import Rulespage from './pages/rules'
 import SignupPage from './pages/users/signup'
 import SnackbarAlert from './shared/snackbar-alert'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
+import { type CurrentUserResponseAPIModel } from './types/api-models'
+import apiUtils from './utils/api-utils'
 
 const RouterElements = () => {
   // snackbar alert logic
@@ -45,8 +47,8 @@ const RouterElements = () => {
   React.useEffect(() => {
     const getAuthData = async () => {
       try {
-        const authData = await Auth.currentAuthenticatedUser()
-        setUserData({ ...authData, exists: true })
+        const response: CurrentUserResponseAPIModel = await apiUtils.get('/users/current')
+        setUserData({ ...response })
       } catch {
         setUserData(defaultUserData)
         if (requireLoginPages.includes(location.pathname)) {

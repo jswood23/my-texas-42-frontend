@@ -1,5 +1,6 @@
 import type { ReadyState } from 'react-use-websocket'
 import type { SendJsonMessage } from 'react-use-websocket/dist/lib/types'
+import { type CurrentUserResponseAPIModel } from './api-models'
 
 export interface ChatMessage {
   message?: string
@@ -110,16 +111,6 @@ export interface Rule {
   requires: string[]
 }
 
-export interface UserData {
-  exists: boolean
-  readonly attributes: {
-    email: string
-    email_verified: boolean
-    sub: string
-  }
-  readonly username: string
-}
-
 export interface GlobalObj {
   connection: WebSocketConnection
 
@@ -130,5 +121,5 @@ export interface GlobalObj {
 
   openAlert: OpenAlert
 
-  userData: UserData
+  userData: CurrentUserResponseAPIModel
 }

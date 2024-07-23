@@ -1,4 +1,5 @@
-import type { ProfileData, UserData } from '../types'
+import type { ProfileData } from '../types'
+import { type CurrentUserResponseAPIModel } from '../types/api-models'
 
 export const apiContext = 'mytexas42api'
 
@@ -24,11 +25,11 @@ export const defaultProfileData: ProfileData = {
   total_rounds_as_counter: 0
 }
 
-export const defaultUserData: UserData = {
+export const defaultUserData: CurrentUserResponseAPIModel = {
   exists: false,
   attributes: {
     email: 'default@email.com',
-    email_verified: false,
+    emailverified: false,
     sub: '12345'
   },
   username: ''

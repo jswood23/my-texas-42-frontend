@@ -1,5 +1,4 @@
 import { Button, CircularProgress, Collapse, FormControl, TextField } from '@mui/material'
-import { Auth } from 'aws-amplify'
 import type { GlobalObj } from '../../../types'
 import { useNavigate } from 'react-router-dom'
 import { validateField } from '../../../utils/user-utils'
@@ -8,6 +7,7 @@ import ConfirmUserForm from '../../../shared/confirm-user-form'
 import PageContainer from '../../../shared/page-container'
 import styled from 'styled-components'
 import ApiUtils from '../../../utils/api-utils'
+import { type LoginResponseAPIModel } from '../../../types/api-models'
 
 const StyledRoot = styled.div(({ theme }) => ({
   width: '100%',
@@ -150,8 +150,10 @@ const LoginPage = ({ globals }: Props) => {
     try {
       setIsLoading(true)
 
-      const response = await ApiUtils.post('/users/login', { username, password })
-      console.log(response)
+      const response: LoginResponseAPIModel = await ApiUtils.post('/users/login', { username, password })
+
+      ApiUtils.setToken(response.token)
+
       globals.openAlert('Signed in successfully!', 'success')
       goToHome()
     } catch (error: any) {

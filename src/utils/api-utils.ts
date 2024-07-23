@@ -1,6 +1,6 @@
 import config from '../constants/config'
 
-let token: string | null = null
+let token: string | null = localStorage.getItem('token')
 const url = config.api.URL ?? ''
 
 const request = async (method: string, path: string, body?: any) => {
@@ -26,8 +26,9 @@ const request = async (method: string, path: string, body?: any) => {
   return await response.json()
 }
 
-const setToken = async (newToken: string) => {
+const setToken = (newToken: string) => {
   token = newToken
+  localStorage.setItem('token', newToken)
 }
 
 const post = async (path: string, body: any) => {

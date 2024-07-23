@@ -1,4 +1,4 @@
-const environment = process.env.ENVIRONMENT
+const environment = process.env.REACT_APP_ENVIRONMENT
 
 const environmentValues = {
   staging: 'staging',
