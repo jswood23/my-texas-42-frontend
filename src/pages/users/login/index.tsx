@@ -7,6 +7,7 @@ import * as React from 'react'
 import ConfirmUserForm from '../../../shared/confirm-user-form'
 import PageContainer from '../../../shared/page-container'
 import styled from 'styled-components'
+import ApiUtils from '../../../utils/api-utils'
 
 const StyledRoot = styled.div(({ theme }) => ({
   width: '100%',
@@ -148,8 +149,9 @@ const LoginPage = ({ globals }: Props) => {
     // Submit form
     try {
       setIsLoading(true)
-      // const { user } = await Auth.signUp(modelFields);
-      await Auth.signIn(username, password)
+
+      const response = await ApiUtils.post('/users/login', { username, password })
+      console.log(response)
       globals.openAlert('Signed in successfully!', 'success')
       goToHome()
     } catch (error: any) {

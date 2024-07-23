@@ -1,20 +1,17 @@
+const environment = process.env.ENVIRONMENT
+
+const environmentValues = {
+  staging: 'staging',
+  production: 'production'
+}
+
 const config = {
-  // Backend config
-  s3: {
-    REGION: process.env.REACT_APP_REGION
-  },
-  apiGateway: {
-    REGION: process.env.REACT_APP_REGION,
-    URL: process.env.REACT_APP_API_URL
-  },
-  cognito: {
-    REGION: process.env.REACT_APP_REGION,
-    USER_POOL_ID: process.env.REACT_APP_USER_POOL_ID,
-    APP_CLIENT_ID: process.env.REACT_APP_USER_POOL_CLIENT_ID,
-    IDENTITY_POOL_ID: process.env.REACT_APP_IDENTITY_POOL_ID
+  environment,
+  api: {
+    URL: environment === environmentValues.staging ? process.env.REACT_APP_STAGING_API_PATH : process.env.REACT_APP_PRODUCTION_API_PATH
   },
   websocket: {
-    URL: process.env.REACT_APP_WEBSOCKET_API_PATH
+    URL: environment === environmentValues.staging ? process.env.REACT_APP_STAGING_WEBSOCKET_API_PATH : process.env.REACT_APP_PRODUCTION_WEBSOCKET_API_PATH
   }
 }
 
