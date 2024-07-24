@@ -1,5 +1,5 @@
 import { Button, CircularProgress, Collapse, FormControl, TextField } from '@mui/material'
-import type { GlobalObj } from '../../../types'
+import { type GlobalObj, type TextFieldObj } from '../../../types'
 import { useNavigate } from 'react-router-dom'
 import { validateField } from '../../../utils/user-utils'
 import * as React from 'react'
@@ -8,6 +8,8 @@ import PageContainer from '../../../shared/page-container'
 import styled from 'styled-components'
 import ApiUtils from '../../../utils/api-utils'
 import { type LoginResponseAPIModel } from '../../../types/api-models'
+import { passwordFormRequirements, usernameFormRequirements } from '../../../constants/forms'
+import { isAllWhitespace } from '../../../utils/string-utils'
 
 const StyledRoot = styled.div(({ theme }) => ({
   width: '100%',
@@ -92,16 +94,8 @@ const LoginPage = ({ globals }: Props) => {
   const runValidationTasks = React.useCallback(
     (fieldName: string, currentValue: string) => {
       const validations = {
-        username: [
-          { type: 'IsNonWhitespace' },
-          { type: 'LessThanChar', numValues: [25] },
-          { type: 'Required' }
-        ],
-        password: [
-          { type: 'IsNonWhitespace' },
-          { type: 'LessThanChar', numValues: [20] },
-          { type: 'Required' }
-        ]
+        username: usernameFormRequirements,
+        password: passwordFormRequirements
       }
       const validationResponse = validateField(
         currentValue,
@@ -113,7 +107,7 @@ const LoginPage = ({ globals }: Props) => {
     []
   )
 
-  const onChangeUsername = (e: { target: { value: string } }) => {
+  const onChangeUsername = (e: TextFieldObj) => {
     const value = e.target.value
     if ((errors.username as any)?.hasError) {
       runValidationTasks('username', value)
@@ -121,7 +115,7 @@ const LoginPage = ({ globals }: Props) => {
     setUsername(value)
   }
 
-  const onChangePassword = (e: { target: { value: string } }) => {
+  const onChangePassword = (e: TextFieldObj) => {
     const value = e.target.value
     if ((errors.password as any)?.hasError) {
       runValidationTasks('password', value)
@@ -136,7 +130,7 @@ const LoginPage = ({ globals }: Props) => {
     runValidationTasks('username', username)
     runValidationTasks('password', password)
 
-    const somethingIsAllWhitespace = !/\S/.test(username) || !/\S/.test(password)
+    const somethingIsAllWhitespace = isAllWhitespace(username) || isAllWhitespace(password)
 
     if (
       Object.values(errors).some((e: any) => e?.hasError) ||

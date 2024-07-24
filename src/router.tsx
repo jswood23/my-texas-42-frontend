@@ -5,6 +5,7 @@ import { defaultGameState } from './constants/game-constants'
 import { isMobile } from 'react-device-detect'
 import { type WebSocketConnection, type GlobalObj } from './types'
 import * as React from 'react'
+import EditProfilePage from './pages/users/edit-profile'
 import Homepage from './pages/home'
 import LoginPage from './pages/users/login'
 import Navbar from './shared/navbar'
@@ -40,7 +41,7 @@ const RouterElements = () => {
     })
   }
 
-  // get user data from amplify auth
+  // get user data
   const [userData, setUserData] = React.useState(defaultUserData)
   const location = useLocation()
   const navigate = useNavigate()
@@ -153,6 +154,10 @@ const RouterElements = () => {
             <Route
               path='/play'
               element={<PlayPage globals={globals} />}
+            />
+            <Route
+              path='/profile/edit'
+              element={<EditProfilePage globals={globals} />}
             />
           </>}
       </Routes>

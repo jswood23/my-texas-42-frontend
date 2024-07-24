@@ -1,10 +1,9 @@
-import { API } from 'aws-amplify'
-import { apiContext, defaultOtherProfileData, defaultProfileData } from '../../../constants'
+import { defaultOtherProfileData, defaultProfileData } from '../../../constants'
 import { Button, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material'
 import { Cancel, GroupAdd, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
 import { limitString } from '../../../utils/string-utils'
 import type { GlobalObj } from '../../../types'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 import PageContainer from '../../../shared/page-container'
 import ProfileStats from './profile-stats'
 import queryString from 'query-string'
@@ -26,7 +25,7 @@ const StyledPageElements = styled.div(({ theme }) => ({
 }))
 
 const StyledRoot = styled(Button)(({ theme }) => ({
-  '.profile-friend-actions-button': {
+  '.page-action': {
     color: theme.palette.secondary.main,
     backgroundColor: theme.palette.primary.alt,
     fontWeight: 'bold',
@@ -50,7 +49,14 @@ const ProfilePage = ({ globals }: Props) => {
   const [isLoading, setIsLoading] = React.useState(false)
   const [profileData, setProfileData] = React.useState(isOwnProfile ? defaultProfileData : defaultOtherProfileData)
 
-  const pageHeader = username.length ? `${limitString(username, 25)}'s Profile` : 'User not found'
+  const displayName = profileData.displayname
+  const navigate = useNavigate()
+  const nameToShow = displayName.length > 0 ? displayName : queryUsername
+  const pageHeader = displayName.length | queryUsername.length ? limitString(nameToShow, 25) : 'User not found'
+
+  const goToEditProfile = React.useCallback(() => {
+    navigate(`/profile/edit?username=${globals.userData?.username}`)
+  }, [navigate])
 
   React.useEffect(() => {
     const getProfileData = async () => {
@@ -74,9 +80,10 @@ const ProfilePage = ({ globals }: Props) => {
     else setIsError(true)
   }, [location])
 
-  const getProfileFriendAction = () => {
-    const isFriends = isOwnProfile ? false : (profileData as OtherUserProfileResponseAPIModel).isfriends
-    const isRequested = isOwnProfile ? false : (profileData as OtherUserProfileResponseAPIModel).isrequestsent
+  const getPageAction = () => {
+    const otherUserProfileData = profileData as OtherUserProfileResponseAPIModel
+    const isFriends = otherUserProfileData.isfriends
+    const isRequested = otherUserProfileData.isrequestsent
 
     const handleCloseDropdown = React.useCallback(() => {
       setAnchorEl(null)
@@ -122,12 +129,26 @@ const ProfilePage = ({ globals }: Props) => {
         })
     }
 
-    return (isOwnProfile || isLoading)
-      ? <></>
-      : (
+    if (isLoading) return <></>
+
+    if (isOwnProfile) {
+      return (
+          <StyledRoot>
+            <Button
+              className='page-action'
+              variant='contained'
+              onClick={goToEditProfile}
+            >
+              Edit Profile
+            </Button>
+          </StyledRoot>
+      )
+    }
+
+    return (
       <StyledRoot>
         <Button
-          className='profile-friend-actions-button'
+          className='page-action'
           variant='contained'
           onClick={handleOpenDropdown}
           endIcon={
@@ -169,7 +190,7 @@ const ProfilePage = ({ globals }: Props) => {
           }
         </Menu>
       </StyledRoot>
-        )
+    )
   }
 
   return isError
@@ -181,7 +202,7 @@ const ProfilePage = ({ globals }: Props) => {
       )
     : (
     <PageContainer
-      action={getProfileFriendAction()}
+      action={getPageAction()}
       globals={globals}
       isLoading={isLoading}
       title={pageHeader}

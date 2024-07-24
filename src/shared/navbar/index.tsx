@@ -8,6 +8,7 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import * as React from 'react'
 import Logo42 from '../../images/42logo.png'
 import styled from 'styled-components'
+import apiUtils from '../../utils/api-utils'
 
 interface Props {
   globals: GlobalObj
@@ -110,7 +111,8 @@ const Navbar = ({ globals }: Props) => {
   const handleClickSignOut = React.useCallback(async () => {
     handleCloseDropdown()
     try {
-      await Auth.signOut()
+      apiUtils.setToken('')
+      await apiUtils.get('/users/current')
       globals.openAlert('Signed out successfully!', 'success')
       navigate('/')
     } catch (error: any) {

@@ -1,11 +1,17 @@
 import { Alert, Button, CircularProgress, Collapse, FormControl, TextField } from '@mui/material'
 import { Auth } from 'aws-amplify'
-import type { GlobalObj } from '../../../types'
+import { type GlobalObj, type TextFieldObj } from '../../../types'
 import { validateField } from '../../../utils/user-utils'
 import * as React from 'react'
 import ConfirmUserForm from '../../../shared/confirm-user-form'
 import PageContainer from '../../../shared/page-container'
 import styled from 'styled-components'
+import {
+  confirmPasswordFormRequirements,
+  emailFormRequirements,
+  newPasswordFormRequirements,
+  usernameFormRequirements
+} from '../../../constants/forms'
 
 const StyledRoot = styled.div(({ theme }) => ({
   width: '100%',
@@ -72,34 +78,10 @@ const SignupPage = ({ globals }: Props) => {
   const runValidationTasks = React.useCallback(
     (fieldName: string, currentValue: string) => {
       const validations = {
-        email: [
-          { type: 'Email' },
-          { type: 'LessThanChar', numValues: [30] },
-          { type: 'Required' }
-        ],
-        username: [
-          { type: 'IsNonWhitespace' },
-          { type: 'LessThanChar', numValues: [25] },
-          { type: 'Required' }
-        ],
-        password: [
-          { type: 'Required' },
-          { type: 'GreaterThanChar', numValues: [8] },
-          { type: 'LessThanChar', numValues: [20] },
-          {
-            type: 'Contains',
-            strValues: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'],
-            validationMessage: 'The password must contain a number.'
-          }
-        ],
-        confirmPassword: [
-          { type: 'Required' },
-          {
-            type: 'EqualTo',
-            numValues: [password],
-            validationMessage: 'The passwords must match.'
-          }
-        ]
+        email: emailFormRequirements,
+        username: usernameFormRequirements,
+        password: newPasswordFormRequirements,
+        confirmPassword: confirmPasswordFormRequirements(password)
       }
       const validationResponse = validateField(
         currentValue,
@@ -111,7 +93,7 @@ const SignupPage = ({ globals }: Props) => {
     [password]
   )
 
-  const onChangeEmail = (e: { target: { value: string } }) => {
+  const onChangeEmail = (e: TextFieldObj) => {
     const value = e.target.value
     if ((errors.email as any)?.hasError) {
       runValidationTasks('email', value)
@@ -119,7 +101,7 @@ const SignupPage = ({ globals }: Props) => {
     setEmail(value)
   }
 
-  const onChangeUsername = (e: { target: { value: string } }) => {
+  const onChangeUsername = (e: TextFieldObj) => {
     const value = e.target.value
     if ((errors.username as any)?.hasError) {
       runValidationTasks('username', value)
@@ -127,7 +109,7 @@ const SignupPage = ({ globals }: Props) => {
     setUsername(value)
   }
 
-  const onChangePassword = (e: { target: { value: string } }) => {
+  const onChangePassword = (e: TextFieldObj) => {
     const value = e.target.value
     if ((errors.password as any)?.hasError) {
       runValidationTasks('password', value)
@@ -135,7 +117,7 @@ const SignupPage = ({ globals }: Props) => {
     setPassword(value)
   }
 
-  const onChangeConfirmPassword = (e: { target: { value: string } }) => {
+  const onChangeConfirmPassword = (e: TextFieldObj) => {
     const value = e.target.value
     if ((errors.confirmPassword as any)?.hasError) {
       runValidationTasks('confirmPassword', value)

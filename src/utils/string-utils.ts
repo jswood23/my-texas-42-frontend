@@ -3,3 +3,7 @@ export const limitString = (input: string, limit: number) => {
   if (!input) return ''
   return input.length > limit ? `${input.slice(0, limit).trim()}...` : input
 }
+
+export const isAllWhitespace = (input: string) => {
+  return !input.trim()
+}

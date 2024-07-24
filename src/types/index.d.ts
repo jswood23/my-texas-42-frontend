@@ -123,3 +123,9 @@ export interface GlobalObj {
 
   userData: CurrentUserResponseAPIModel
 }
+
+export interface TextFieldObj {
+  target: {
+    value: string
+  }
+}
