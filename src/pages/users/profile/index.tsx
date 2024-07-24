@@ -1,5 +1,5 @@
 import { API } from 'aws-amplify'
-import { apiContext, defaultProfileData } from '../../../constants'
+import { apiContext, defaultOtherProfileData, defaultProfileData } from '../../../constants'
 import { Button, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material'
 import { Cancel, GroupAdd, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
 import { limitString } from '../../../utils/string-utils'
@@ -11,6 +11,8 @@ import queryString from 'query-string'
 import * as React from 'react'
 import ProfileFriends from './profile-friends'
 import styled from 'styled-components'
+import type { OtherUserProfileResponseAPIModel, UserProfileResponseAPIModel } from '../../../types/api-models'
+import apiUtils from '../../../utils/api-utils'
 
 interface Props {
   globals: GlobalObj
@@ -39,24 +41,24 @@ const ProfilePage = ({ globals }: Props) => {
   const location = useLocation()
   const queryParams = queryString.parse(location.search)
   const queryUsername = (queryParams.username as string) ?? ''
+  const [username, setUsername] = React.useState(queryUsername)
+  const isOwnProfile = username === globals.userData.username
 
   const [anchorEl, setAnchorEl] = React.useState(null)
   const isDropdownOpen = Boolean(anchorEl)
   const [isError, setIsError] = React.useState(false)
   const [isLoading, setIsLoading] = React.useState(false)
-  const [profileData, setProfileData] = React.useState(defaultProfileData)
-  const [username, setUsername] = React.useState(queryUsername)
+  const [profileData, setProfileData] = React.useState(isOwnProfile ? defaultProfileData : defaultOtherProfileData)
 
   const pageHeader = username.length ? `${limitString(username, 25)}'s Profile` : 'User not found'
-  const isOwnProfile = username === globals.userData.username
 
   React.useEffect(() => {
     const getProfileData = async () => {
       setUsername(queryUsername)
       setIsError(false)
       setIsLoading(true)
-      await API.get(apiContext, `/users/${queryUsername}`, {})
-        .then((response) => {
+      await apiUtils.get(`/users/${queryUsername}`)
+        .then((response: UserProfileResponseAPIModel | OtherUserProfileResponseAPIModel) => {
           setProfileData(response)
         }).catch((error) => {
           console.log(error)
@@ -73,8 +75,8 @@ const ProfilePage = ({ globals }: Props) => {
   }, [location])
 
   const getProfileFriendAction = () => {
-    const isFriends = profileData?.friends?.includes(globals.userData?.username)
-    const isRequested = profileData?.incoming_friend_requests?.includes(globals.userData?.username)
+    const isFriends = isOwnProfile ? false : (profileData as OtherUserProfileResponseAPIModel).isfriends
+    const isRequested = isOwnProfile ? false : (profileData as OtherUserProfileResponseAPIModel).isrequestsent
 
     const handleCloseDropdown = React.useCallback(() => {
       setAnchorEl(null)
@@ -86,8 +88,9 @@ const ProfilePage = ({ globals }: Props) => {
 
     const handleClickAddFriend = async () => {
       handleCloseDropdown()
-      await API.get(apiContext, `/friends/send_request/${username}`, {})
+      await apiUtils.post(`/friends/${username}`, {})
         .then(() => {
+          setProfileData({ ...profileData, isrequestsent: true })
           globals.openAlert(`Sent friend request to ${username}.`, 'success')
         }).catch((error) => {
           console.log(error)
@@ -97,8 +100,9 @@ const ProfilePage = ({ globals }: Props) => {
 
     const handleClickCancelRequest = async () => {
       handleCloseDropdown()
-      await API.get(apiContext, `/friends/cancel_request/${username}`, {})
+      await apiUtils.del(`/friends/${username}`)
         .then(() => {
+          setProfileData({ ...profileData, isrequestsent: false })
           globals.openAlert(`Canceled friend request to ${username}.`, 'success')
         }).catch((error) => {
           console.log(error)
@@ -108,8 +112,9 @@ const ProfilePage = ({ globals }: Props) => {
 
     const handleClickRemoveFriend = async () => {
       handleCloseDropdown()
-      await API.get(apiContext, `/friends/remove_friend/${username}`, {})
+      await apiUtils.del(`/friends/${username}`)
         .then(() => {
+          setProfileData({ ...profileData, isfriends: false })
           globals.openAlert(`Removed ${username} from friend list.`, 'success')
         }).catch((error) => {
           console.log(error)
@@ -182,11 +187,11 @@ const ProfilePage = ({ globals }: Props) => {
       title={pageHeader}
     >
       <StyledPageElements>
-        <ProfileStats profileData={profileData} />
+        <ProfileStats userStats={profileData.stats} />
         {isOwnProfile && (
           <ProfileFriends
             globals={globals}
-            profileData={profileData}
+            profileData={profileData as UserProfileResponseAPIModel}
           />
         )}
       </StyledPageElements>

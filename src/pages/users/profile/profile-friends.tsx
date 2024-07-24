@@ -6,6 +6,8 @@ import { limitString } from '../../../utils/string-utils'
 import type { GlobalObj, ProfileData } from '../../../types'
 import * as React from 'react'
 import styled from 'styled-components'
+import type { UserProfileResponseAPIModel } from '../../../types/api-models'
+import apiUtils from '../../../utils/api-utils'
 
 const StyledRoot = styled.div(({ theme }) => ({
   display: 'flex',
@@ -71,7 +73,7 @@ const StyledRoot = styled.div(({ theme }) => ({
 
 interface Props {
   globals: GlobalObj
-  profileData: ProfileData
+  profileData: UserProfileResponseAPIModel
 }
 
 const ProfileFriends = ({ globals, profileData }: Props) => {
@@ -80,14 +82,14 @@ const ProfileFriends = ({ globals, profileData }: Props) => {
   const [friendsFilter, setFriendsFilter] = React.useState('')
   const filterMessage = friendsFilter ? `Filtered by '${limitString(friendsFilter, 18)}'` : 'Showing all friends'
 
-  const [requests, setRequests] = React.useState(profileData.incoming_friend_requests)
+  const [requests, setRequests] = React.useState(profileData.incomingrequests)
   const numRequests = requests?.length
   const [addFriendUsername, setAddFriendUsername] = React.useState('')
   const [isLoading, setIsLoading] = React.useState(false)
 
   React.useEffect(() => {
     setFriends(profileData.friends)
-    setRequests(profileData.incoming_friend_requests)
+    setRequests(profileData.incomingrequests)
   }, [profileData])
 
   const onChangeFriendsFilter = (e: { target: { value: string } }) => { setFriendsFilter(e.target.value) }
@@ -95,7 +97,7 @@ const ProfileFriends = ({ globals, profileData }: Props) => {
   const onChangeAddFriend = (e: { target: { value: string } }) => { setAddFriendUsername(e.target.value) }
 
   const onClickAcceptRequest = async (friendUsername: string) => {
-    await API.get(apiContext, `/friends/accept_request/${friendUsername}`, {})
+    await apiUtils.post(`/friends/${friendUsername}/accept`, {})
       .then(() => {
         globals.openAlert(`Now friends with ${friendUsername}.`, 'success')
         friends?.push(friendUsername)
@@ -107,7 +109,7 @@ const ProfileFriends = ({ globals, profileData }: Props) => {
   }
 
   const onClickRejectRequest = async (friendUsername: string) => {
-    await API.get(apiContext, `/friends/reject_request/${friendUsername}`, {})
+    await apiUtils.del(`/friends/${friendUsername}`)
       .then(() => {
         globals.openAlert(`Rejected friend request from ${friendUsername}.`, 'success')
         requests?.splice(requests?.indexOf(friendUsername), 1)
@@ -124,7 +126,7 @@ const ProfileFriends = ({ globals, profileData }: Props) => {
     }
 
     setIsLoading(true)
-    await API.get(apiContext, `/friends/send_request/${addFriendUsername}`, {})
+    await apiUtils.post(`/friends/${addFriendUsername}`, {})
       .then(() => {
         globals.openAlert(`Sent friend request to ${addFriendUsername}.`, 'success')
         setAddFriendUsername('')
@@ -137,7 +139,7 @@ const ProfileFriends = ({ globals, profileData }: Props) => {
   }
 
   const onClickRemoveFriend = async (friendUsername: string) => {
-    await API.get(apiContext, `/friends/remove_friend/${friendUsername}`, {})
+    await apiUtils.del(`/friends/${friendUsername}`)
       .then(() => {
         globals.openAlert(`Removed ${friendUsername} from friend list.`, 'success')
         friends?.splice(friends?.indexOf(friendUsername), 1)

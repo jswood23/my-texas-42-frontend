@@ -1,5 +1,5 @@
 import { Tooltip, Typography } from '@mui/material'
-import type { ProfileData } from '../../../types'
+import type { UserStatsAPIModel } from '../../../types/api-models'
 import styled from 'styled-components'
 
 const StyledRoot = styled.div(({ theme }) => ({
@@ -37,10 +37,10 @@ const StatsEntry = styled(Typography)(({ theme }) => ({
 }))
 
 interface Props {
-  profileData: ProfileData
+  userStats: UserStatsAPIModel
 }
 
-const ProfileStats = ({ profileData }: Props) => {
+const ProfileStats = ({ userStats }: Props) => {
   const getRatio = (numerator: number, denominator: number, perc = false) => {
     if (denominator === 0) return '0.0'
     let ratio = numerator / denominator
@@ -54,23 +54,23 @@ const ProfileStats = ({ profileData }: Props) => {
     return `${perc}%`
   }
 
-  const gameWinRate = getPercentage(profileData.games_won, profileData.games_played)
-  const roundWinRate = getPercentage(profileData.rounds_won, profileData.rounds_played)
-  const bidderPPR = getRatio(profileData.total_points_as_bidder, profileData.total_rounds_as_bidder)
-  const supportPPR = getRatio(profileData.total_points_as_support, profileData.total_rounds_as_support)
-  const counterPPR = getRatio(profileData.total_points_as_counter, profileData.total_rounds_as_counter)
+  const gameWinRate = getPercentage(userStats.gameswon, userStats.gamesplayed)
+  const roundWinRate = getPercentage(userStats.roundswon, userStats.roundsplayed)
+  const bidderPPR = getRatio(userStats.totalpointsasbidder, userStats.totalroundsasbidder)
+  const supportPPR = getRatio(userStats.totalpointsassupport, userStats.totalroundsassupport)
+  const counterPPR = getRatio(userStats.totalpointsascounter, userStats.totalroundsascounter)
 
   return (
     <StyledRoot>
       <Typography className="stats-title">Game Stats</Typography>
       <div className="stats-entries">
         <Tooltip
-          title={`${profileData.games_won} games won, ${profileData.games_played} games played`}
+          title={`${userStats.gameswon} games won, ${userStats.gamesplayed} games played`}
         >
           <StatsEntry>Game win rate: {gameWinRate}</StatsEntry>
         </Tooltip>
         <Tooltip
-          title={`${profileData.rounds_won} rounds won, ${profileData.rounds_played} rounds played`}
+          title={`${userStats.roundswon} rounds won, ${userStats.roundsplayed} rounds played`}
         >
           <StatsEntry>Round win rate: {roundWinRate}</StatsEntry>
         </Tooltip>

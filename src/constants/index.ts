@@ -1,5 +1,9 @@
 import type { ProfileData } from '../types'
-import { type CurrentUserResponseAPIModel } from '../types/api-models'
+import {
+  type CurrentUserResponseAPIModel,
+  type OtherUserProfileResponseAPIModel,
+  type UserProfileResponseAPIModel, type UserStatsAPIModel
+} from '../types/api-models'
 
 export const apiContext = 'mytexas42api'
 
@@ -11,18 +15,43 @@ export const CONNECTION_STATES = {
   uninstantiated: 'Uninstantiated'
 }
 
-export const defaultProfileData: ProfileData = {
-  game_history: [],
-  games_played: 0,
-  games_won: 0,
-  rounds_played: 0,
-  rounds_won: 0,
-  total_points_as_bidder: 0,
-  total_rounds_as_bidder: 0,
-  total_points_as_support: 0,
-  total_rounds_as_support: 0,
-  total_points_as_counter: 0,
-  total_rounds_as_counter: 0
+export const defaultUserStats: UserStatsAPIModel = {
+  gamesplayed: 0,
+  gameswon: 0,
+  roundsplayed: 0,
+  roundswon: 0,
+  totalpointsasbidder: 0,
+  totalroundsasbidder: 0,
+  totalpointsassupport: 0,
+  totalroundsassupport: 0,
+  totalpointsascounter: 0,
+  totalroundsascounter: 0,
+  timeswinningbidtotal: 0,
+  timescallingsuit: 0,
+  timescallingnil: 0,
+  timescallingsplash: 0,
+  timescallingplunge: 0,
+  timescallingsevens: 0,
+  timescallingdelve: 0
+}
+
+export const defaultProfileData: UserProfileResponseAPIModel = {
+  id: '',
+  username: '',
+  email: '',
+  displayname: '',
+  friends: [],
+  incomingrequests: [],
+  stats: defaultUserStats
+}
+
+export const defaultOtherProfileData: OtherUserProfileResponseAPIModel = {
+  id: '',
+  username: '',
+  displayname: '',
+  isfriends: false,
+  isrequestsent: false,
+  stats: defaultUserStats
 }
 
 export const defaultUserData: CurrentUserResponseAPIModel = {
