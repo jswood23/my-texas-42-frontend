@@ -8,7 +8,11 @@ import PageContainer from '../../../shared/page-container'
 import styled from 'styled-components'
 import ApiUtils from '../../../utils/api-utils'
 import { type LoginResponseAPIModel } from '../../../types/api-models'
-import { passwordFormRequirements, usernameFormRequirements } from '../../../constants/forms'
+import {
+  passwordFormRequirements,
+  usernameFormRequirements,
+  usernameOrEmailFormRequirements
+} from '../../../constants/forms'
 import { isAllWhitespace } from '../../../utils/string-utils'
 
 const StyledRoot = styled.div(({ theme }) => ({
@@ -94,7 +98,7 @@ const LoginPage = ({ globals }: Props) => {
   const runValidationTasks = React.useCallback(
     (fieldName: string, currentValue: string) => {
       const validations = {
-        username: usernameFormRequirements,
+        username: usernameOrEmailFormRequirements,
         password: passwordFormRequirements
       }
       const validationResponse = validateField(
@@ -190,7 +194,7 @@ const LoginPage = ({ globals }: Props) => {
         <div className="form-container">
           <FormControl>
             <TextField
-              label="Username"
+              label="Username or email"
               id="username"
               autoComplete="on"
               size="small"

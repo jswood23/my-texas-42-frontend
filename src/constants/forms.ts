@@ -14,6 +14,13 @@ export const usernameFormRequirements = [
   { type: validationFields.required }
 ]
 
+export const usernameOrEmailFormRequirements = [
+  { type: validationFields.isNonWhitespace },
+  { type: validationFields.lessThanChar, numValues: [30] },
+  { type: validationFields.greaterThanChar, numValues: [4] },
+  { type: validationFields.required }
+]
+
 export const passwordFormRequirements = [
   { type: validationFields.isNonWhitespace },
   { type: validationFields.lessThanChar, numValues: [20] },
