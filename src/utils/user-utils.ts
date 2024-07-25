@@ -5,6 +5,27 @@
  **************************************************************************/
 
 /* eslint-disable */
+export const validationFields = {
+  required: 'Required',
+  lessThanChar: 'LessThanChar',
+  greaterThanChar: 'GreaterThanChar',
+  lessThanNum: 'LessThanNum',
+  greaterThanNum: 'GreaterThanNum',
+  equalTo: 'EqualTo',
+  startWith: 'StartWith',
+  endWith: 'EndWith',
+  contains: 'Contains',
+  notContains: 'NotContains',
+  beAfter: 'BeAfter',
+  beBefore: 'BeBefore',
+  email: 'Email',
+  JSON: 'JSON',
+  ipAddress: 'IpAddress',
+  URL: 'URL',
+  phone: 'Phone',
+  isNonWhitespace: 'IsNonWhitespace',
+  hasNoSpecialCharacters: 'HasNoSpecialCharacters'
+}
 export const validateField = (
     value: any,
     validations: [
@@ -44,35 +65,35 @@ export const validateField = (
   const checkValidation = (value: any, validation: { type: string, numValues: [number], strValues: [string], validationMessage: string}) => {
     if (validation.numValues?.length) {
       switch (validation.type) {
-        case 'LessThanChar':
+        case validationFields.lessThanChar:
           return {
             hasError: !(value.length <= validation.numValues[0]),
             errorMessage:
               validation.validationMessage ||
               `The value must be shorter than ${validation.numValues[0]} characters`,
           };
-        case 'GreaterThanChar':
+        case validationFields.greaterThanChar:
           return {
             hasError: !(value.length >= validation.numValues[0]),
             errorMessage:
               validation.validationMessage ||
               `The value must be at least ${validation.numValues[0]} characters`,
           };
-        case 'LessThanNum':
+        case validationFields.lessThanNum:
           return {
             hasError: !(value < validation.numValues[0]),
             errorMessage:
               validation.validationMessage ||
               `The value must be less than ${validation.numValues[0]}`,
           };
-        case 'GreaterThanNum':
+        case validationFields.greaterThanNum:
           return {
             hasError: !(value > validation.numValues[0]),
             errorMessage:
               validation.validationMessage ||
               `The value must be greater than ${validation.numValues[0]}`,
           };
-        case 'EqualTo':
+        case validationFields.equalTo:
           return {
             hasError: !validation.numValues.some((el) => el === value),
             errorMessage:
@@ -83,35 +104,35 @@ export const validateField = (
       }
     } else if (validation.strValues?.length) {
       switch (validation.type) {
-        case 'StartWith':
+        case validationFields.startWith:
           return {
             hasError: !validation.strValues.some((el) => value.startsWith(el)),
             errorMessage:
               validation.validationMessage ||
               `The value must start with ${validation.strValues.join(', ')}`,
           };
-        case 'EndWith':
+        case validationFields.endWith:
           return {
             hasError: !validation.strValues.some((el) => value.endsWith(el)),
             errorMessage:
               validation.validationMessage ||
               `The value must end with ${validation.strValues.join(', ')}`,
           };
-        case 'Contains':
+        case validationFields.contains:
           return {
             hasError: !validation.strValues.some((el) => value.includes(el)),
             errorMessage:
               validation.validationMessage ||
               `The value must contain ${validation.strValues.join(', ')}`,
           };
-        case 'NotContains':
+        case validationFields.notContains:
           return {
             hasError: !validation.strValues.every((el) => !value.includes(el)),
             errorMessage:
               validation.validationMessage ||
               `The value must not contain ${validation.strValues.join(', ')}`,
           };
-        case 'BeAfter':
+        case validationFields.beAfter:
           return {
             hasError: !(
               new Date(value) >
@@ -121,7 +142,7 @@ export const validateField = (
               validation.validationMessage ||
               `The value must be after ${validation.strValues[0]}`,
           };
-        case 'BeBefore':
+        case validationFields.beBefore:
           return {
             hasError: !(
               new Date(value) <
@@ -134,7 +155,7 @@ export const validateField = (
       }
     }
     switch (validation.type) {
-      case 'Email':
+      case validationFields.email:
         const EMAIL_ADDRESS_REGEX =
           /^[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+\/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/;
         return {
@@ -143,7 +164,7 @@ export const validateField = (
             validation.validationMessage ||
             'The value must be a valid email address',
         };
-      case 'JSON':
+      case validationFields.JSON:
         let isInvalidJSON = false;
         try {
           JSON.parse(value);
@@ -156,7 +177,7 @@ export const validateField = (
             validation.validationMessage ||
             'The value must be in a correct JSON format',
         };
-      case 'IpAddress':
+      case validationFields.ipAddress:
         const IPV_4 =
           /^(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)(?:\.(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]\d|\d)){3}$/;
         const IPV_6 =
@@ -167,7 +188,7 @@ export const validateField = (
             validation.validationMessage ||
             'The value must be an IPv4 or IPv6 address',
         };
-      case 'URL':
+      case validationFields.URL:
         let isInvalidUrl = false;
         try {
           new URL(value);
@@ -180,7 +201,7 @@ export const validateField = (
             validation.validationMessage ||
             'The value must be a valid URL that begins with a schema (i.e. http:// or mailto:)',
         };
-      case 'Phone':
+      case validationFields.phone:
         const PHONE = /^\+?\d[\d\s-]+$/;
         return {
           hasError: !PHONE.test(value),
@@ -188,12 +209,20 @@ export const validateField = (
             validation.validationMessage ||
             'The value must be a valid phone number',
         };
-      case 'IsNonWhitespace':
+      case validationFields.isNonWhitespace:
         return {
           hasError: !(/\S/.test(value)),
           errorMessage:
             validation.validationMessage ||
             'The value must have non-whitespace',
+        };
+      case validationFields.hasNoSpecialCharacters:
+        const SPECIAL_CHARACTERS = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]+/;
+        return {
+          hasError: SPECIAL_CHARACTERS.test(value),
+          errorMessage:
+            validation.validationMessage ||
+            'The value must not contain special characters',
         };
       default:
     }
