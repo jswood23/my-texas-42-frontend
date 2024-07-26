@@ -26,6 +26,7 @@ export const THEME = {
       linkHover: '#5c5cff'
     },
     domino: {
+      color0: '#C2B280', // creme
       color1: '#E31837', // red
       color2: '#006491', // blue
       color3: '#228B22', // forest green
