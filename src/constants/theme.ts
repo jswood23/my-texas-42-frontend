@@ -19,6 +19,12 @@ export const THEME = {
       main: '#A0A0A0',
       alt: '#EAEAEA'
     },
+    text: {
+      main: '#000000',
+      light: '#6a6a6a',
+      link: '#2424ff',
+      linkHover: '#5c5cff'
+    },
     domino: {
       color1: '#E31837', // red
       color2: '#006491', // blue

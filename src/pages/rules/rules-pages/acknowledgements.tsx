@@ -11,7 +11,7 @@ const AcknowledgementsPage = () => {
       <ul>
         <li><Typography className="paragraph">Aidan Hill &apos;23 - Writer</Typography></li>
         <li><Typography className="paragraph">Owen Dunston &apos;23 - Writer</Typography></li>
-        <li><Typography className="paragraph">Joshua Wood &apos;23 - Writer, Styling/Illustrations</Typography></li>
+        <li><Typography className="paragraph">Joshua Wood &apos;23 - Editor, Styling/Illustrations</Typography></li>
       </ul>
     </>
   )

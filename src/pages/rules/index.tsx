@@ -46,15 +46,32 @@ const StyledRoot = styled.div(({ theme }) => ({
     padding: theme.spacing(2)
   },
   '.main-header': {
+    color: theme.palette.text.main,
     fontSize: theme.spacing(4),
-    marginTop: theme.spacing(2)
+    marginBottom: theme.spacing(2)
   },
   '.paragraph': {
+    color: theme.palette.text.main,
     fontSize: theme.spacing(2)
   },
   '.second-header': {
+    color: theme.palette.text.main,
     fontSize: theme.spacing(3),
     marginTop: theme.spacing(1)
+  },
+  '.rules-image': {
+    width: theme.spacing(30)
+  },
+  '.rules-image-container': {
+    padding: theme.spacing(4),
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  '.rules-image-description': {
+    color: theme.palette.text.light,
+    fontSize: theme.spacing(1.25)
   },
   '.one-para': {
     fontSize: theme.spacing(2),
@@ -89,7 +106,7 @@ const StyledRoot = styled.div(({ theme }) => ({
 }))
 
 const RulesPage = ({ globals }: Props) => {
-  const defaultRulesPage: RulesPageType = RULES_PAGES.acknowledgements
+  const defaultRulesPage: RulesPageType = RULES_PAGES.about
   const [rulesPage, setRulesPage] = React.useState(defaultRulesPage)
 
   const pageToDisplay = React.useMemo(() => {

@@ -15,14 +15,14 @@ const StyledRoot = styled.div(({ theme }) => ({
   alignItems: 'start',
   '.rules-link': {
     fontSize: theme.spacing(2),
-    color: theme.palette.primary.main,
+    color: theme.palette.text.link,
     cursor: 'pointer',
     marginTop: theme.spacing(1.5),
     textAlign: 'left',
     textDecoration: 'none',
     lineHeight: '1',
     '&:hover': {
-      color: theme.palette.primary.alt
+      color: theme.palette.text.linkHover
     }
   },
   '.one-indent': {
