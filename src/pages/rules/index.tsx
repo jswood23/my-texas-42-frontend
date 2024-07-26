@@ -10,7 +10,6 @@ import TerminologyPage from './rules-pages/terminology'
 import SplashPage from './rules-pages/splash'
 import SetupPage from './rules-pages/setup'
 import BiddingPage from './rules-pages/bidding'
-import CountPage from './rules-pages/count'
 import DelvePage from './rules-pages/delve'
 import NilDoublesLowPage from './rules-pages/nil-doubles-low'
 import NilDoublesHighPage from './rules-pages/nil-doubles-high'
@@ -18,6 +17,7 @@ import NilDoublesOwnSuitPage from './rules-pages/nil-doubles-own-suit'
 import NormalRulesPage from './rules-pages/normal-rules'
 import OneMarkPage from './rules-pages/one-mark'
 import PlungePage from './rules-pages/plunge'
+import ScoringPage from './rules-pages/scoring'
 import SevensPage from './rules-pages/sevens'
 import SuitsPage from './rules-pages/suits'
 import TrumpsPage from './rules-pages/trumps'
@@ -117,8 +117,8 @@ const RulesPage = ({ globals }: Props) => {
         return <AcknowledgementsPage />
       case RULES_PAGES.bidding:
         return <BiddingPage />
-      case RULES_PAGES.count:
-        return <CountPage />
+      case RULES_PAGES.scoring:
+        return <ScoringPage />
       case RULES_PAGES.delve:
         return <DelvePage />
       case RULES_PAGES.exampleRound:

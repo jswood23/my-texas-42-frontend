@@ -2,11 +2,11 @@
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
-const CountPage = () => {
+const ScoringPage = () => {
   return (
     <>
       <ul><Typography className="second-header">
-        <li>Count</li>
+        <li>Scoring</li>
       </Typography></ul>
       <Typography className="paragraph">
         Another important aspect to consider is count. Count dominos are identified as any domino whose total number of
@@ -28,4 +28,4 @@ const CountPage = () => {
   )
 }
 
-export default CountPage
+export default ScoringPage

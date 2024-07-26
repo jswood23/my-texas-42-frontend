@@ -5,7 +5,7 @@ import * as React from 'react'
 const NormalRulesPage = () => {
   return (
     <>
-      <Typography className="main-header">Playing a Regular Mark Hand</Typography>
+      <Typography className="main-header">Normal Rules</Typography>
       <Typography className="paragraph">
         If a player wins a bid, the next step is for the winner to decide what the trump is and start the first trick of
         the round. The “trump” is a special dominant suit in the round and is decided by whoever wins the bid.

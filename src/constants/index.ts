@@ -96,7 +96,7 @@ export const RULES_PAGES = {
   normalRules: 'normal-rules',
   suits: 'suits',
   trumps: 'trumps',
-  count: 'count',
+  scoring: 'scoring',
   bidding: 'bidding',
   exampleRound: 'example-hand',
   variants: 'variants',

@@ -66,37 +66,37 @@ const SideNavigationBar = ({ rulesPage, setRulesPage }: Props) => {
       <Link
         component="button"
         className="rules-link"
-        onClick={() => { setRulesPage(RULES_PAGES.normalRules) }}
-      >
-        Normal Rules
-      </Link>
-      <Link
-        component="button"
-        className="rules-link one-indent"
         onClick={() => { setRulesPage(RULES_PAGES.suits) }}
       >
         Suits
       </Link>
       <Link
         component="button"
-        className="rules-link one-indent"
+        className="rules-link"
         onClick={() => { setRulesPage(RULES_PAGES.trumps) }}
       >
         Trumps
       </Link>
       <Link
         component="button"
-        className="rules-link one-indent"
-        onClick={() => { setRulesPage(RULES_PAGES.count) }}
+        className="rules-link"
+        onClick={() => { setRulesPage(RULES_PAGES.scoring) }}
       >
-        Count
+        Scoring
       </Link>
       <Link
         component="button"
-        className="rules-link one-indent"
+        className="rules-link"
         onClick={() => { setRulesPage(RULES_PAGES.bidding) }}
       >
         Bidding
+      </Link>
+      <Link
+        component="button"
+        className="rules-link"
+        onClick={() => { setRulesPage(RULES_PAGES.normalRules) }}
+      >
+        Normal Rules
       </Link>
       <Link
         component="button"
