@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const TrumpsPage = () => {
   return (
-    <StyledRoot>
+    <>
       <ul><Typography className="second-header">
         <li>Trumps</li>
       </Typography></ul>
@@ -27,7 +27,7 @@ const TrumpsPage = () => {
         Otherwise trumps work like any other suit. If a trump is led, other players must play a trump. If multiple
         players play a trump, the highest trump will win the trick.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

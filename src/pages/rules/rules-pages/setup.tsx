@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const SetupPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="main-header">Getting Started</Typography>
       <Typography className="paragraph">
         In a traditional environment, the players sit around a flat table with teammates sitting across from each other.
@@ -17,7 +17,7 @@ const SetupPage = () => {
         The other players are not allowed to know what dominoes you have, including your partner. Virtually, all of this
         is done automatically.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

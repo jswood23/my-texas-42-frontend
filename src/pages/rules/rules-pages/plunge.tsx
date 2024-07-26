@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const PlungePage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="second-header">
         Plunge
       </Typography>
@@ -23,7 +23,7 @@ const PlungePage = () => {
         For example, if one bids two mark and calls plunge, the bid raises to three-mark. Other than these two
         distinctions, plunge operates the same as splash.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

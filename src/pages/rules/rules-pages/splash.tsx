@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const SplashPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="second-header">
         Splash
       </Typography>
@@ -14,7 +14,7 @@ const SplashPage = () => {
         way, splash and plunge calls are a legal method of table talk. Some house rules allow for the bidder’s partner
         to call sevens or nil.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

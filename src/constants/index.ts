@@ -98,7 +98,7 @@ export const RULES_PAGES = {
   trumps: 'trumps',
   count: 'count',
   bidding: 'bidding',
-  exampleHand: 'example-hand',
+  exampleRound: 'example-hand',
   variants: 'variants',
   forcedBid: 'forced-bid',
   oneMark: 'one-mark',

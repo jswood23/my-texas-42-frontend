@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const TerminologyPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="main-header">Terminology</Typography>
       <Typography className="paragraph">
         <ul>
@@ -27,7 +27,7 @@ const TerminologyPage = () => {
           <li><b>Off</b>: A domino that is not guaranteed to win a trick.</li>
         </ul>
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

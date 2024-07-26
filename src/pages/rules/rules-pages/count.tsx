@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const CountPage = () => {
   return (
-    <StyledRoot>
+    <>
       <ul><Typography className="second-header">
         <li>Count</li>
       </Typography></ul>
@@ -24,7 +24,7 @@ const CountPage = () => {
         + 5, or 16 total points. Where the 1 point is the value of the whole trick, and the 10 and 5 are the values of
         each count domino added to that.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const SuitsPage = () => {
   return (
-    <StyledRoot>
+    <>
       <ul><Typography className="second-header">
         <li>Suits</li>
       </Typography></ul>
@@ -46,7 +46,7 @@ const SuitsPage = () => {
         className="five-para">5</Typography>-<Typography className="five-para">5</Typography> still wins because it is a
         double and the suit is <Typography className="five-para">fives</Typography>.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

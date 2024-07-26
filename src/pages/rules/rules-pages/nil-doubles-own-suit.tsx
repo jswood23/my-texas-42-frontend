@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const NilDoublesOwnSuitPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="second-header">
         Doubles Are a Suit of Their Own
       </Typography>
@@ -19,7 +19,7 @@ const NilDoublesOwnSuitPage = () => {
         all. It is a double. It cannot be played in suit if the suit is <Typography
         className="three-para">threes</Typography>.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

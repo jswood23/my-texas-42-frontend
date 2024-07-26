@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const NilDoublesLowPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="second-header">
         Doubles are low
       </Typography>
@@ -19,7 +19,7 @@ const NilDoublesLowPage = () => {
         className="three-para">3</Typography>, <Typography className="five-para">5</Typography>-4, <Typography
         className="five-para">5</Typography>-<Typography className="six-para">6</Typography>.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const SevensPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="second-header">
         Sevens
       </Typography>
@@ -13,7 +13,7 @@ const SevensPage = () => {
         this is done, each trick everyone plays their domino which is the closest to the number seven. The caller wins
         so long as either of their team’s dominos are tied with or closer than either of the opposing team’s dominos.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

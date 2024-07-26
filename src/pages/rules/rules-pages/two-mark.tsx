@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const TwoMarkPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="second-header">
         Two Mark
       </Typography>
@@ -21,7 +21,7 @@ const TwoMarkPage = () => {
         are possible with two-mark bids as well. The special game modes that you can play with multi-mark bids are
         outlined below.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

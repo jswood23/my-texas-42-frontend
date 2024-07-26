@@ -26,12 +26,25 @@ import TwoMarkPage from './rules-pages/two-mark'
 import ForcedBidPage from './rules-pages/forced-bid'
 import ExampleRoundPage from './rules-pages/example-round'
 import NilPage from './rules-pages/nil'
+import SideNavigationBar from './side-navigation-bar'
 
 interface Props {
   globals: GlobalObj
 }
 
 const StyledRoot = styled.div(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'row',
+  '.left-side': {
+    flexBasis: '30%',
+    width: '100%',
+    padding: theme.spacing(2)
+  },
+  '.right-side': {
+    flexBasis: '70%',
+    width: '100%',
+    padding: theme.spacing(2)
+  },
   '.main-header': {
     fontSize: theme.spacing(4),
     marginTop: theme.spacing(2)
@@ -91,7 +104,7 @@ const RulesPage = ({ globals }: Props) => {
         return <CountPage />
       case RULES_PAGES.delve:
         return <DelvePage />
-      case RULES_PAGES.exampleHand:
+      case RULES_PAGES.exampleRound:
         return <ExampleRoundPage />
       case RULES_PAGES.forcedBid:
         return <ForcedBidPage />
@@ -132,7 +145,17 @@ const RulesPage = ({ globals }: Props) => {
 
   return (
     <PageContainer globals={globals} title="Rules">
-      {pageToDisplay}
+      <StyledRoot>
+        <div className='left-side'>
+          <SideNavigationBar
+            rulesPage={rulesPage}
+            setRulesPage={setRulesPage}
+          />
+        </div>
+        <div className='right-side'>
+          {pageToDisplay}
+        </div>
+      </StyledRoot>
     </PageContainer>
   )
 }

@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const NilPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="second-header">
         Nil
       </Typography>
@@ -35,7 +35,7 @@ const NilPage = () => {
         dominoes become good. The game gets even more complicated when “Doubles Low” and “Doubles are a Suit” calls
         are made.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const ExampleRoundPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="main-header">Example Hand</Typography>
       <Typography className="paragraph">
         Let’s say that Josh wins a 31 bid and calls <Typography className="four-para">fours</Typography> as the trump.
@@ -60,7 +60,7 @@ const ExampleRoundPage = () => {
         Because Josh bid 31 points and his team has secured 33 points, Josh and Owen have made their bid and win the
         mark.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

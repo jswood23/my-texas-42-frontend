@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const NormalRulesPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="main-header">Playing a Regular Mark Hand</Typography>
       <Typography className="paragraph">
         If a player wins a bid, the next step is for the winner to decide what the trump is and start the first trick of
@@ -25,7 +25,7 @@ const NormalRulesPage = () => {
         Tricks are won by playing the highest domino, but bids are won by winning count. More details about how to play
         a regular mark hand follow below.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

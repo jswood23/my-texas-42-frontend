@@ -1,10 +1,9 @@
 import { Typography } from '@mui/material'
 import * as React from 'react'
-import StyledRoot from '.'
 
 const AboutPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="main-header">About</Typography>
       <Typography className="paragraph">
         Texas 42, or 42, is a table-top game played with a set of double-six dominoes.
@@ -24,7 +23,7 @@ const AboutPage = () => {
         grasp at first, but with a little practice you will discover an in-depth game of counting, strategy, risk, and
         even bluffing.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 

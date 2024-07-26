@@ -1,10 +1,10 @@
-import StyledRoot from '.'
+
 import { Typography } from '@mui/material'
 import * as React from 'react'
 
 const ForcedBidPage = () => {
   return (
-    <StyledRoot>
+    <>
       <Typography className="second-header">
         Forced Bids
       </Typography>
@@ -14,7 +14,7 @@ const ForcedBidPage = () => {
         certain amount. Generally, this value is 30, however in some variants, such as the one played by the Texas A&M
         Singing Cadets, the minimum bid is 31.
       </Typography>
-    </StyledRoot>
+    </>
   )
 }
 
