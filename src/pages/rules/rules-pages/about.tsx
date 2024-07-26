@@ -33,9 +33,6 @@ const AboutPage = () => {
             Annual National 42 Tournament in Hallettsville, Texas
           </Typography>
         </div>
-
-        This guide was created with the goal of teaching beginners the basics, as well as a reference for seasoned
-        players who want to learn new variants and rulesets.
       </Typography>
     </>
   )

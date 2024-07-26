@@ -22,6 +22,8 @@ const TerminologyPage = () => {
            on by the winner of the bid.</li>
           <li><b>Hand</b>: The set of seven dominoes that is picked up by each player at the beginning of the round. Can
             also refer to a “round” of dominoes.</li>
+          <li><b>Shake</b>: To randomly arrange the dominoes face-down on the table. This is done by a single player pushing
+            the dominoes around on the table until they have been sufficiently randomized.</li>
           <li><b>Table Talk</b>: Communication about bidding or hands between teammates during a round. This behavior is
             strictly prohibited.</li>
           <li><b>Off</b>: A domino that will likely not win a trick.</li>
