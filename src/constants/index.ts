@@ -1,4 +1,3 @@
-import type { ProfileData } from '../types'
 import {
   type CurrentUserResponseAPIModel,
   type OtherUserProfileResponseAPIModel,
@@ -88,4 +87,29 @@ export const SERVER_MESSAGE_TYPES = {
   chat: 'chat',
   gameError: 'game-error',
   gameUpdate: 'game-update'
+}
+
+export const RULES_PAGES = {
+  about: 'about',
+  terminology: 'terminology',
+  setup: 'setup',
+  normalRules: 'normal-rules',
+  suits: 'suits',
+  trumps: 'trumps',
+  count: 'count',
+  bidding: 'bidding',
+  exampleHand: 'example-hand',
+  variants: 'variants',
+  forcedBid: 'forced-bid',
+  oneMark: 'one-mark',
+  twoMark: 'two-mark',
+  nil: 'nil',
+  nilDoublesLow: 'nil-doubles-low',
+  nilDoublesHigh: 'nil-doubles-high',
+  nilDoublesOwnSuit: 'nil-doubles-own-suit',
+  splash: 'splash',
+  plunge: 'plunge',
+  sevens: 'sevens',
+  delve: 'delve',
+  acknowledgements: 'acknowledgements'
 }

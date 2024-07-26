@@ -1,6 +1,7 @@
 import type { ReadyState } from 'react-use-websocket'
 import type { SendJsonMessage } from 'react-use-websocket/dist/lib/types'
 import { type CurrentUserResponseAPIModel } from './api-models'
+import { type RULES_PAGES } from '../constants'
 
 export interface ChatMessage {
   message?: string
@@ -129,3 +130,5 @@ export interface TextFieldObj {
     value: string
   }
 }
+
+type RulesPageType = typeof RULES_PAGES[keyof typeof RULES_PAGES]

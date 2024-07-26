@@ -1,4 +1,3 @@
-import { Auth } from 'aws-amplify'
 import { Navigate, Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import { CONNECTION_STATES, defaultUserData, requireLoginPages } from './constants'
 import { defaultGameState } from './constants/game-constants'
@@ -11,7 +10,7 @@ import LoginPage from './pages/users/login'
 import Navbar from './shared/navbar'
 import PlayPage from './pages/play'
 import ProfilePage from './pages/users/profile'
-import Rulespage from './pages/rules'
+import RulesPage from './pages/rules'
 import SignupPage from './pages/users/signup'
 import SnackbarAlert from './shared/snackbar-alert'
 import useWebSocket, { ReadyState } from 'react-use-websocket'
@@ -134,7 +133,7 @@ const RouterElements = () => {
           <Route path="/home" element={<Navigate to="/" />} />
           <Route
             path="/rules"
-            element={<Rulespage globals={globals} />}
+            element={<RulesPage globals={globals} />}
           />
           {!userData.exists && <>
             <Route
