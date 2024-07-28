@@ -5,10 +5,13 @@ import * as React from 'react'
 const SuitsPage = () => {
   return (
     <>
-      <ul><Typography className="second-header">
-        <li>Suits</li>
-      </Typography></ul>
+      <Typography className="main-header">
+        Suits
+      </Typography>
       <Typography className="paragraph">
+
+      </Typography>
+      {/* <Typography className="paragraph">
         It is essential to understand how suits work. There are seven basic suits, <Typography
         className="six-para">sixes</Typography>, <Typography className="five-para">fives</Typography>, <Typography
         className="four-para">fours</Typography>, <Typography className="three-para">threes</Typography>, <Typography
@@ -45,7 +48,7 @@ const SuitsPage = () => {
         className="five-para">5</Typography>-<Typography className="six-para">6</Typography>, the <Typography
         className="five-para">5</Typography>-<Typography className="five-para">5</Typography> still wins because it is a
         double and the suit is <Typography className="five-para">fives</Typography>.
-      </Typography>
+      </Typography> */}
     </>
   )
 }
