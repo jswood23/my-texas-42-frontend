@@ -18,9 +18,7 @@ const SetupPage = () => {
         <br/><br/>
         Once the dominoes are shaken, each player draws 7 dominoes. The two players on the opposing team of the shaker
         draw their dominoes first, followed by the shaker&apos;s teammate. The shaker takes the remaining dominoes.
-        <br/><br/>
-        Dominoes can be held in one’s hands or balanced on their sides, facing away from the other players.
-        Players may not see the faces of other players&apos; dominoes.
+
         <div className="rules-image-container">
           <Box
             className="rules-image"
@@ -32,6 +30,9 @@ const SetupPage = () => {
             Holding four dominoes in one hand
           </Typography>
         </div>
+
+        Dominoes can be held in one’s hands or balanced on their sides, facing away from the other players.
+        Players may not see the faces of other players&apos; dominoes.
       </Typography>
     </>
   )

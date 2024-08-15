@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import styled from 'styled-components'
 
 const StyledSix = styled(Typography)(({ theme }) => ({
-  color: theme.palette.domino.color1,
+  color: theme.palette.domino.color6,
   fontWeight: 'bold',
   display: 'inline'
 }))
