@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material'
+import { Button, Divider, Typography } from '@mui/material'
 import PageContainer from '../../shared/page-container'
 import type { GlobalObj, RulesPageType } from '../../types'
 import styled from 'styled-components'
@@ -34,14 +34,24 @@ interface Props {
 
 const StyledRoot = styled.div(({ theme }) => ({
   display: 'flex',
-  flexDirection: 'row',
+  flexDirection: theme.isMobile ? 'column' : 'row',
+  width: '100%',
+  padding: theme.spacing(1),
   '.left-side': {
     flexBasis: '30%',
     width: '100%',
-    padding: theme.spacing(2)
+    padding: theme.spacing(1)
   },
   '.right-side': {
     flexBasis: '70%',
+    width: '100%',
+    padding: theme.spacing(2)
+  },
+  '.top-side': {
+    width: '100%',
+    padding: theme.spacing(2)
+  },
+  '.bottom-side': {
     width: '100%',
     padding: theme.spacing(2)
   },
@@ -52,7 +62,24 @@ const StyledRoot = styled.div(({ theme }) => ({
   },
   '.paragraph': {
     color: theme.palette.text.main,
-    fontSize: theme.spacing(2)
+    fontSize: theme.spacing(2),
+    width: '100%'
+  },
+  '.nav-buttons-container': {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '100%'
+  },
+  '.nav-button': {
+    backgroundColor: theme.palette.primary.alt,
+    color: theme.palette.secondary.main,
+    fontSize: theme.isMobile ? theme.spacing(2) : theme.spacing(1.5),
+    paddingLeft: theme.spacing(3),
+    paddingRight: theme.spacing(3),
+    '&:hover': {
+      color: theme.palette.secondary.alt,
+      backgroundColor: theme.palette.primary.main
+    }
   },
   '.second-header': {
     color: theme.palette.text.main,
@@ -108,23 +135,62 @@ const StyledRoot = styled.div(({ theme }) => ({
 const RulesPage = ({ globals }: Props) => {
   const defaultRulesPage: RulesPageType = RULES_PAGES.about
   const [rulesPage, setRulesPage] = React.useState(defaultRulesPage)
+  const isMobile = globals.isMobile
+  const [nextPage, setNextPage] = React.useState<string | null>(RULES_PAGES.terminology)
+  const [prevPage, setPrevPage] = React.useState<string | null>(null)
+  const topRef = React.useRef<HTMLDivElement>(null)
+
+  const changePage = React.useCallback((page: RulesPageType) => {
+    setRulesPage(page)
+
+    const pagesInOrder = Object.values(RULES_PAGES)
+    const index = pagesInOrder.indexOf(page)
+
+    if (index > 0) {
+      setPrevPage(pagesInOrder[index - 1])
+    } else {
+      setPrevPage(null)
+    }
+
+    if (index < pagesInOrder.length - 1) {
+      setNextPage(pagesInOrder[index + 1])
+    } else {
+      setNextPage(null)
+    }
+
+    if (topRef.current) {
+      topRef.current.scrollIntoView({ behavior: 'smooth' })
+    }
+  }, [rulesPage, setRulesPage, setNextPage, setPrevPage])
 
   const pageToDisplay = React.useMemo(() => {
     switch (rulesPage) {
       case RULES_PAGES.about:
         return <AboutPage />
-      case RULES_PAGES.acknowledgements:
-        return <AcknowledgementsPage />
-      case RULES_PAGES.bidding:
-        return <BiddingPage />
+      case RULES_PAGES.terminology:
+        return <TerminologyPage />
+      case RULES_PAGES.setup:
+        return <SetupPage />
+      case RULES_PAGES.suits:
+        return <SuitsPage />
+      case RULES_PAGES.trumps:
+        return <TrumpsPage />
       case RULES_PAGES.scoring:
         return <ScoringPage />
-      case RULES_PAGES.delve:
-        return <DelvePage />
+      case RULES_PAGES.bidding:
+        return <BiddingPage />
+      case RULES_PAGES.normalRules:
+        return <NormalRulesPage />
       case RULES_PAGES.exampleRound:
         return <ExampleRoundPage />
+      case RULES_PAGES.variants:
+        return <VariantsPage />
       case RULES_PAGES.forcedBid:
         return <ForcedBidPage />
+      case RULES_PAGES.oneMark:
+        return <OneMarkPage />
+      case RULES_PAGES.twoMark:
+        return <TwoMarkPage />
       case RULES_PAGES.nil:
         return <NilPage />
       case RULES_PAGES.nilDoublesHigh:
@@ -133,47 +199,92 @@ const RulesPage = ({ globals }: Props) => {
         return <NilDoublesLowPage />
       case RULES_PAGES.nilDoublesOwnSuit:
         return <NilDoublesOwnSuitPage />
-      case RULES_PAGES.normalRules:
-        return <NormalRulesPage />
-      case RULES_PAGES.oneMark:
-        return <OneMarkPage />
+      case RULES_PAGES.splash:
+        return <SplashPage />
       case RULES_PAGES.plunge:
         return <PlungePage />
       case RULES_PAGES.sevens:
         return <SevensPage />
-      case RULES_PAGES.setup:
-        return <SetupPage />
-      case RULES_PAGES.splash:
-        return <SplashPage />
-      case RULES_PAGES.suits:
-        return <SuitsPage />
-      case RULES_PAGES.terminology:
-        return <TerminologyPage />
-      case RULES_PAGES.trumps:
-        return <TrumpsPage />
-      case RULES_PAGES.variants:
-        return <VariantsPage />
-      case RULES_PAGES.twoMark:
-        return <TwoMarkPage />
+      case RULES_PAGES.delve:
+        return <DelvePage />
+      case RULES_PAGES.acknowledgements:
+        return <AcknowledgementsPage />
       default:
         return <Typography>Page not found</Typography>
     }
-  }, [rulesPage])
+  }, [rulesPage, setNextPage, setPrevPage])
 
-  return (
-    <PageContainer globals={globals} title="Rules">
-      <StyledRoot>
-        <div className='left-side'>
+  const pageContent = (
+      <div className="right-side">
+        {pageToDisplay}
+        <br/><br/>
+        <div className="nav-buttons-container">
+          {prevPage && (
+            <Button
+              className="nav-button"
+              onClick={() => {
+                changePage(prevPage)
+              }}
+            >
+              Back
+            </Button>
+          )}
+          <div style={{ flexGrow: 1 }}></div>
+          {nextPage && (
+            <Button
+              className="nav-button"
+              onClick={() => {
+                changePage(nextPage)
+              }}
+            >
+              Next
+            </Button>
+          )}
+        </div>
+      </div>
+
+  )
+
+  const pageComponentsInOrder = React.useMemo(() => {
+    if (isMobile) {
+      return (
+        <>
+          {pageContent}
+          <div className="bottom-side">
+            <Divider/>
+            <br/>
+            <Typography className="second-header">Contents</Typography>
+            <SideNavigationBar
+              rulesPage={rulesPage}
+              setRulesPage={changePage}
+            />
+          </div>
+        </>
+      )
+    }
+
+    return (
+      <>
+        <div className="left-side">
           <SideNavigationBar
             rulesPage={rulesPage}
-            setRulesPage={setRulesPage}
+            setRulesPage={changePage}
           />
         </div>
-        <div className='right-side'>
-          {pageToDisplay}
-        </div>
-      </StyledRoot>
-    </PageContainer>
+        {pageContent}
+      </>
+    )
+  }, [rulesPage, changePage])
+
+  return (
+    <>
+      <div ref={topRef}></div>
+      <PageContainer globals={globals} title="Rules">
+        <StyledRoot>
+          {pageComponentsInOrder}
+        </StyledRoot>
+      </PageContainer>
+    </>
   )
 }
 
