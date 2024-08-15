@@ -1,31 +1,30 @@
 
 import { Typography } from '@mui/material'
 import * as React from 'react'
+import Six from '../suits/six'
+import Blank from '../suits/blank'
+import Four from '../suits/four'
+import Five from '../suits/five'
 
 const TrumpsPage = () => {
   return (
     <>
-      <ul><Typography className="second-header">
-        <li>Trumps</li>
-      </Typography></ul>
+      <Typography className="main-header">
+        Trumps
+      </Typography>
       <Typography className="paragraph">
-        The game gets more interesting when trumps are considered. As said earlier, trumps are a special dominant suit.
-        Trump can be any of the seven suits, and the trump can also be doubles if the bidder makes a call called
-        “doubles are a suit of their own”.
-        Designating the trump has two effects on the suit chosen. First, any domino with the chosen number on it is
-        always that suit, no matter what is led. So, for example, if <Typography
-        className="two-para">twos</Typography> are trumps and someone leads with the <Typography
-        className="four-para">4</Typography>-<Typography className="four-para">4</Typography> and Jordan has
-        the <Typography className="two-para">2</Typography>-<Typography className="four-para">4</Typography>, Jordan
-        wouldn’t be required to play it because even if it were his only domino with a <Typography
-        className="four-para">four</Typography> on it, it is not a <Typography className="four-para">four</Typography>,
-        it is a <Typography className="two-para">two</Typography>.
-        Second, unlike any other dominos, when played out of suit, a trump becomes the highest domino in the trick. This
-        is referred to as “trumping in”. Ideally you should only trump in when you know you will get count. It is often
-        advantageous to intentionally lose a trick you might have been able to trump into if all you’d lose is one
-        point.
-        Otherwise trumps work like any other suit. If a trump is led, other players must play a trump. If multiple
-        players play a trump, the highest trump will win the trick.
+        At the end of the bidding phase of each round, the bidder chooses a suit to be the <b>trump</b>. The trump is a special suit that
+        wins tricks <em>even when it is not the starting suit</em>.
+        <br/><br/>
+        The bidder has three main options for the trump:
+        <ol>
+          <li>They can choose any of the seven suits (<Blank/> through <Six/>) to be trump.</li>
+          <li>They can call that doubles (as a suit of their own) are trump.</li>
+          <li>They can call &quot;Follow me&quot;, indicating that there is no trump and that the starting suit of each hand is guaranteed to take that hand.</li>
+        </ol>
+        If the starting suit is a <em>non-trump</em> suit and a player has a domino that is in that suit but is also a trump, then that domino is not included
+        in the dominoes that the player must play on their turn. For example, if the trump is <Four/> and the starting suit is <Five/>, then a player with
+        the <Four/>-<Five/> would not be required to play it because that domino is considered a <b>trump</b> and not a <Five/>.
       </Typography>
     </>
   )

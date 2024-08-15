@@ -1,28 +1,46 @@
 
-import { Typography } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import * as React from 'react'
+import Four from '../suits/four'
+import Six from '../suits/six'
+import Blank from '../suits/blank'
+import Five from '../suits/five'
+import One from '../suits/one'
+import Two from '../suits/two'
+import Three from '../suits/three'
+import CountDominoes from '../../../images/count-dominoes.png'
 
 const ScoringPage = () => {
   return (
     <>
-      <ul><Typography className="second-header">
-        <li>Scoring</li>
-      </Typography></ul>
+      <Typography className="main-header">
+        Scoring
+      </Typography>
       <Typography className="paragraph">
-        Another important aspect to consider is count. Count dominos are identified as any domino whose total number of
-        pips adds up to ten or five. The five count dominoes are the <Typography
-        className="six-para">6</Typography>-<Typography className="four-para">4</Typography>, <Typography
-        className="five-para">5</Typography>-<Typography className="five-para">5</Typography>, <Typography
-        className="three-para">3</Typography>-<Typography className="two-para">2</Typography>, <Typography
-        className="five-para">5</Typography>-0, and <Typography className="four-para">4</Typography>-<Typography
-        className="one-para">1</Typography>. When a count domino is played in a trick the value of that trick is 1 plus
-        the value of the count domino.
-        So, a trick where the <Typography className="four-para">4</Typography>-<Typography
-        className="four-para">4</Typography>, <Typography className="four-para">4</Typography>-<Typography
-        className="six-para">6</Typography>, <Typography className="four-para">4</Typography>-0, and <Typography
-        className="four-para">4</Typography>-<Typography className="one-para">1</Typography> are played is worth 1 + 10
-        + 5, or 16 total points. Where the 1 point is the value of the whole trick, and the 10 and 5 are the values of
-        each count domino added to that.
+        There are 42 total points in each round. Each of the 7 tricks is worth 1 point. Additionally, there are
+        5 <b>count</b> dominoes
+        that are worth extra points when taken in a trick:
+
+        <div className="rules-image-container">
+          <Box
+            className="rules-image"
+            component="img"
+            src={CountDominoes}
+            alt="The 5 Count Dominoes"
+          />
+          <Typography className="rules-image-description">
+            The 5 Count Dominoes
+          </Typography>
+        </div>
+
+        Each of these dominoes&apos; sides add up to 5 or 10, and they are worth as many points as they have dots.
+        For instance, the <Six/>-<Four/> is worth 10 points and the <Three/>-<Two/> is worth 5 points.
+        <br/><br/>
+        If a player wins the bid and their team takes <em>at least</em> as many points as their bid, then they win
+        1 <b>mark</b>. If the
+        opposing team takes enough points to keep the bidding team from making their bid, then they win 1 mark instead.
+        <br/><br/>
+        The first team to win 7 total marks wins the game.
       </Typography>
     </>
   )
