@@ -53,8 +53,9 @@ const ExampleRoundPage = () => {
         Player 1 takes the trick with the <Four/>-<Four/>.
         There is no count in the above trick, so Player 1 takes 1 point for the trick. Then, Player 1 leads again
         because they won the trick. Player 1 leads the <Four/>-<Six/> because it is the highest <Four/> left. Player 3
-        plays the <Four/>-<One/> because it is the only <Four/> they have left. Player 3 plays the <Five/>-<Five/>
-        because it gives their team 10 points. Player 4 plays the <One/>-<Blank/> because they have no <Four/>s.
+        plays the <Four/>-<One/> because it is the only <Four/> they have left. Player 3 plays
+        the <Five/>-<Five/> because it gives their team 10 points. Player 4 plays the <One/>-<Blank/> because they have
+        no <Four/>s.
 
         <div className="example-image-container">
           <Box
