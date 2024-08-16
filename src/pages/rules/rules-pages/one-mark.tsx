@@ -9,9 +9,8 @@ const OneMarkPage = () => {
         One Mark Bids
       </Typography>
       <Typography className="paragraph">
-        The One Mark variant applies only when in the scenario of a forced bid. When the One Mark bid is called, the
-        bidding team must win every trick in the hand. Other variants such as nil and splash can be called with one-mark
-        bids.
+        The one-mark variant applies only when in the scenario of a forced bid. When the one-mark bid is called, the
+        bidding team must win every trick in the hand. The bidder may also call one-mark nil if the ruleset allows.
       </Typography>
     </>
   )
