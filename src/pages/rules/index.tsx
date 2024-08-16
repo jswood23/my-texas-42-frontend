@@ -95,6 +95,16 @@ const StyledRoot = styled.div(({ theme }) => ({
     flexDirection: 'column',
     alignItems: 'center'
   },
+  '.example-image-container': {
+    padding: theme.spacing(2),
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center'
+  },
+  '.example-image': {
+    width: theme.spacing(65)
+  },
   '.rules-image-description': {
     color: theme.palette.text.light,
     fontSize: theme.spacing(1.25)
