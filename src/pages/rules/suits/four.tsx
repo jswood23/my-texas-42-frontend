@@ -1,15 +1,13 @@
 import { Typography } from '@mui/material'
 import styled from 'styled-components'
 
-const StyledFour = styled(Typography)(({ theme }) => ({
-  color: theme.palette.domino.color4,
-  fontWeight: 'bold',
-  display: 'inline'
+const StyledFour = styled.div(({ theme }) => ({
+  color: theme.palette.domino.color4
 }))
 
 const Four = () => {
   return (
-    <StyledFour>
+    <StyledFour className="suit-text">
       4
     </StyledFour>
   )

@@ -109,35 +109,10 @@ const StyledRoot = styled.div(({ theme }) => ({
     color: theme.palette.text.light,
     fontSize: theme.spacing(1.25)
   },
-  '.one-para': {
-    fontSize: theme.spacing(2),
-    color: theme.palette.domino.color1,
-    display: 'inline-block'
-  },
-  '.two-para': {
-    fontSize: theme.spacing(2),
-    color: theme.palette.domino.color2,
-    display: 'inline-block'
-  },
-  '.three-para': {
-    fontSize: theme.spacing(2),
-    color: theme.palette.domino.color3,
-    display: 'inline-block'
-  },
-  '.four-para': {
-    fontSize: theme.spacing(2),
-    color: theme.palette.domino.color4,
-    display: 'inline-block'
-  },
-  '.five-para': {
-    fontSize: theme.spacing(2),
-    color: theme.palette.domino.color5,
-    display: 'inline-block'
-  },
-  '.six-para': {
-    fontSize: theme.spacing(2),
-    color: theme.palette.domino.color6,
-    display: 'inline-block'
+  '.suit-text': {
+    fontWeight: 'bold',
+    fontSize: theme.spacing(2.25),
+    display: 'inline'
   }
 }))
 

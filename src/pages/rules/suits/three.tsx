@@ -1,15 +1,13 @@
 import { Typography } from '@mui/material'
 import styled from 'styled-components'
 
-const StyledThree = styled(Typography)(({ theme }) => ({
-  color: theme.palette.domino.color3,
-  fontWeight: 'bold',
-  display: 'inline'
+const StyledThree = styled.div(({ theme }) => ({
+  color: theme.palette.domino.color3
 }))
 
 const Three = () => {
   return (
-    <StyledThree>
+    <StyledThree className="suit-text">
       3
     </StyledThree>
   )

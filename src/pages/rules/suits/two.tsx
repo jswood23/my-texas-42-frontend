@@ -1,15 +1,13 @@
 import { Typography } from '@mui/material'
 import styled from 'styled-components'
 
-const StyledTwo = styled(Typography)(({ theme }) => ({
-  color: theme.palette.domino.color2,
-  fontWeight: 'bold',
-  display: 'inline'
+const StyledTwo = styled.div(({ theme }) => ({
+  color: theme.palette.domino.color2
 }))
 
 const Two = () => {
   return (
-    <StyledTwo>
+    <StyledTwo className="suit-text">
       2
     </StyledTwo>
   )
