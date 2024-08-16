@@ -14,7 +14,6 @@ import DelvePage from './rules-pages/delve'
 import NilDoublesLowPage from './rules-pages/nil-doubles-low'
 import NilDoublesHighPage from './rules-pages/nil-doubles-high'
 import NilDoublesOwnSuitPage from './rules-pages/nil-doubles-own-suit'
-import NormalRulesPage from './rules-pages/normal-rules'
 import OneMarkPage from './rules-pages/one-mark'
 import PlungePage from './rules-pages/plunge'
 import ScoringPage from './rules-pages/scoring'
@@ -179,8 +178,6 @@ const RulesPage = ({ globals }: Props) => {
         return <ScoringPage />
       case RULES_PAGES.bidding:
         return <BiddingPage />
-      case RULES_PAGES.normalRules:
-        return <NormalRulesPage />
       case RULES_PAGES.exampleRound:
         return <ExampleRoundPage />
       case RULES_PAGES.variants:

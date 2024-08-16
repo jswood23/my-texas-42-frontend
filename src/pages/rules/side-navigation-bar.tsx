@@ -94,13 +94,6 @@ const SideNavigationBar = ({ rulesPage, setRulesPage }: Props) => {
       <Link
         component="button"
         className="rules-link"
-        onClick={() => { setRulesPage(RULES_PAGES.normalRules) }}
-      >
-        Normal Rules
-      </Link>
-      <Link
-        component="button"
-        className="rules-link one-indent"
         onClick={() => { setRulesPage(RULES_PAGES.exampleRound) }}
       >
         Example Round
