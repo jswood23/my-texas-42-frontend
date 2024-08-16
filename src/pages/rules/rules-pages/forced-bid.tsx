@@ -5,14 +5,15 @@ import * as React from 'react'
 const ForcedBidPage = () => {
   return (
     <>
-      <Typography className="second-header">
+      <Typography className="main-header">
         Forced Bids
       </Typography>
       <Typography className="paragraph">
-        The most common 42 variant rule is the forced bid rule. The forced bid rule states that when the bid is passed
-        by everyone at the table, the person who shakes (i.e., the person who bids last) must bid a minimum of a
-        certain amount. Generally, this value is 30, however in some variants, such as the one played by the Texas A&M
-        Singing Cadets, the minimum bid is 31.
+        The forced bid rule is the most common 42 variant. The forced bid rule states that when the bid is passed
+        by 3 players, the last person to bid must bid a minimum of a certain amount. Usually, this value is 30, but it
+        is sometimes 31, as played by the Texas A&M Singing Cadets.
+        <br/><br/>
+        The forced bid rule is used to keep the game moving and to prevent players from passing indefinitely.
       </Typography>
     </>
   )

@@ -113,10 +113,10 @@ const ExampleRoundPage = () => {
         </div>
 
         Player 3 takes the trick with the <Six/>-<Six/>. The trick includes 5 points for Player
-        4&apos;s <Five/>-<Blank/>
-        and 1 point for the trick. Players 3 and 4 now have 6 points for the round. Player 3 leads the <Blank/>-<Blank/>
-        because it is a double. Player 2 plays the <Blank/>-<Three/> because it is their only <Blank/>. Player 4 plays
-        the <Five/>-<Three/>, and Player 1 plays the <Four/>-<Two/>, using their trump to win the trick.
+        4&apos;s <Five/>-<Blank/> and 1 point for the trick. Players 3 and 4 now have 6 points for the round. Player 3
+        leads the <Blank/>-<Blank/> because it is a double. Player 2 plays the <Blank/>-<Three/> because it is their
+        only <Blank/>. Player 4 plays the <Five/>-<Three/>, and Player 1 plays the <Four/>-<Two/>, using their trump to
+        win the trick.
 
         <div className="example-image-container">
           <Box
@@ -128,8 +128,8 @@ const ExampleRoundPage = () => {
         </div>
 
         Player 1 takes the trick with the <Four/>-<Two/>. The trick has no count dominoes, so it is worth 1 point.
-        Players 1 and 2 now have 30 points for the round. Player 1 leads the <Three/>-<Two/>, Player 3 plays the
-        <Six/>-<Two/>, Player 2 plays the <Six/>-<Five/>, and Player 4 plays the <Three/>-<Three/>.
+        Players 1 and 2 now have 30 points for the round. Player 1 leads the <Three/>-<Two/>, Player 3 plays
+        the <Six/>-<Two/>, Player 2 plays the <Six/>-<Five/>, and Player 4 plays the <Three/>-<Three/>.
 
         <div className="example-image-container">
           <Box

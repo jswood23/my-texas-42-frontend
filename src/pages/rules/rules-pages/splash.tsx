@@ -5,14 +5,15 @@ import * as React from 'react'
 const SplashPage = () => {
   return (
     <>
-      <Typography className="second-header">
+      <Typography className="main-header">
         Splash
       </Typography>
       <Typography className="paragraph">
-        Splash calls are played the same as a normal mark hand, with the exception that the bidder’s partner decides
-        what the trump is. To make a “splash” call, the bidder must have at least three doubles in their hand. In a
-        way, splash and plunge calls are a legal method of table talk. Some house rules allow for the bidder’s partner
-        to call sevens or nil.
+        Splash calls can only be made by the bidder if they have at least three doubles in their hand. When a splash
+        call is made, the bidder&apos;s partner must decide the trump and lead the first trick.
+        <br/><br/>
+        If the sevens or nil variants are allowed by the ruleset, then the bidder&apos;s partner may choose to call one
+        of those variants instead of a trump.
       </Typography>
     </>
   )

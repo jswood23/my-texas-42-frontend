@@ -5,13 +5,13 @@ import * as React from 'react'
 const OneMarkPage = () => {
   return (
     <>
-      <Typography className="second-header">
-        One Mark
+      <Typography className="main-header">
+        One Mark Bids
       </Typography>
       <Typography className="paragraph">
-        The One Mark variant allows for one-mark bids to be made if and only if the bidder is being forced to bid.
-        One-mark calls are similar to two-mark calls in that the bidding team must win every trick in the hand.
-        Special variants such as nil and splash can be played with one-mark bids.
+        The One Mark variant applies only when in the scenario of a forced bid. When the One Mark bid is called, the
+        bidding team must win every trick in the hand. Other variants such as nil and splash can be called with one-mark
+        bids.
       </Typography>
     </>
   )

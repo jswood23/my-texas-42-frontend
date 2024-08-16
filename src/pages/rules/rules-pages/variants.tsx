@@ -7,9 +7,15 @@ const VariantsPage = () => {
     <>
       <Typography className="main-header">Variants</Typography>
       <Typography className="paragraph">
-        As said earlier, there are many different variant rules used by different communities. This is a list of the
-        most common variant game modes and rules in the state, however it is by no means a comprehensive list of every
-        single 42 variant.
+        There are many different variant rules used by different communities. Here are some of the most common ones:
+        <ul>
+          <li>Forced Bids</li>
+          <li>Nil</li>
+          <li>Splash</li>
+          <li>Plunge</li>
+          <li>Sevens</li>
+          <li>Delve</li>
+        </ul>
       </Typography>
     </>
   )

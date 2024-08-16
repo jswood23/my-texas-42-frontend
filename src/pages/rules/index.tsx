@@ -103,7 +103,7 @@ const StyledRoot = styled.div(({ theme }) => ({
     alignItems: 'center'
   },
   '.example-image': {
-    width: theme.spacing(65)
+    width: theme.isMobile ? theme.spacing(50) : theme.spacing(65)
   },
   '.rules-image-description': {
     color: theme.palette.text.light,
