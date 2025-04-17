@@ -1,15 +1,15 @@
-import { API } from 'aws-amplify'
 import { Button } from '@mui/material'
-import { CONNECTION_STATES, GAME_STAGES, apiContext } from '../../constants'
+import { CONNECTION_STATES, GAME_STAGES } from '../../constants'
 import type { GlobalObj, LobbyInfo } from '../../types'
 import { styled } from 'styled-components'
 import { useLocation } from 'react-router-dom'
+import { useRef } from 'react'
+import apiUtils from '../../utils/api-utils'
 import InGame from './in-game'
 import Lobbies from './lobbies'
 import NewGame from './new-game'
 import PageContainer from '../../shared/page-container'
 import * as React from 'react'
-import { useEffect, useRef } from 'react'
 
 interface Props {
   globals: GlobalObj
@@ -85,13 +85,13 @@ const PlayPage = ({ globals }: Props) => {
       let isInGame = false
       onChangeStage(GAME_STAGES.LOBBY_LOADING)
 
-      await API.get(apiContext, '/list_lobbies', {})
+      await apiUtils.get('/games')
         .then((response) => {
-          if (response.inGame) {
+          if (response.in_game) {
             isInGame = true
           } else {
-            setPublicLobbies(response.publicLobbies)
-            setPrivateLobbies(response.privateLobbies)
+            setPublicLobbies(response.public_games)
+            setPrivateLobbies(response.private_games)
           }
         })
         .catch((error) => {
