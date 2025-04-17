@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material'
 import styled from 'styled-components'
 
 const StyledBlank = styled.div(({ theme }) => ({

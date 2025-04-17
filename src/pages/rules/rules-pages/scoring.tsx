@@ -1,11 +1,7 @@
-
 import { Box, Typography } from '@mui/material'
 import * as React from 'react'
 import Four from '../suits/four'
 import Six from '../suits/six'
-import Blank from '../suits/blank'
-import Five from '../suits/five'
-import One from '../suits/one'
 import Two from '../suits/two'
 import Three from '../suits/three'
 import CountDominoes from '../../../images/count-dominoes.png'

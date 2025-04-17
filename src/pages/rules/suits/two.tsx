@@ -1,4 +1,3 @@
-import { Typography } from '@mui/material'
 import styled from 'styled-components'
 
 const StyledTwo = styled.div(({ theme }) => ({

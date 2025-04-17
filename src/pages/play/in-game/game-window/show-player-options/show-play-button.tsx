@@ -3,7 +3,6 @@ import { MOVE_TYPES } from '../../../../../constants/game-constants'
 import { pos } from '../utils/helpers'
 import * as React from 'react'
 import GameButton from '../../../../../shared/game-button'
-import GameSpinner from '../../../../../shared/game-spinner'
 
 interface Props {
   globals: GlobalObj

@@ -10,7 +10,6 @@ import ApiUtils from '../../../utils/api-utils'
 import { type LoginResponseAPIModel } from '../../../types/api-models'
 import {
   passwordFormRequirements,
-  usernameFormRequirements,
   usernameOrEmailFormRequirements
 } from '../../../constants/forms'
 import { isAllWhitespace } from '../../../utils/string-utils'

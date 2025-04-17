@@ -1,5 +1,4 @@
-import { API } from 'aws-amplify'
-import { apiContext, GAME_STAGES } from '../../constants'
+import { GAME_STAGES } from '../../constants'
 import { Button, Checkbox, CircularProgress, Divider, FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, TextField, Tooltip, Typography } from '@mui/material'
 import type { GlobalObj, Rule } from '../../types'
 import { RULES } from '../../constants/rules'
