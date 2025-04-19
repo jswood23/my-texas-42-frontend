@@ -26,6 +26,8 @@ const request = async (method: string, path: string, body?: any) => {
   return await response.json()
 }
 
+const getToken = () => token
+
 const setToken = (newToken: string) => {
   token = newToken
   localStorage.setItem('token', newToken)
@@ -48,6 +50,7 @@ const del = async (path: string) => {
 }
 
 const ApiUtils = {
+  getToken,
   setToken,
   post,
   put,

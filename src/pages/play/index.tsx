@@ -89,6 +89,7 @@ const PlayPage = ({ globals }: Props) => {
         .then((response) => {
           if (response.in_game) {
             isInGame = true
+            setInviteCode(response.in_game.toUpperCase())
           } else {
             setPublicLobbies(response.public_games)
             setPrivateLobbies(response.private_games)
@@ -101,7 +102,7 @@ const PlayPage = ({ globals }: Props) => {
           setPrivateLobbies(emptyLobbyList)
         })
 
-      onChangeStage(isInGame ? GAME_STAGES.IN_GAME_LOADING : GAME_STAGES.LOBBY_STAGE)
+      onChangeStage(isInGame ? GAME_STAGES.IN_GAME_STAGE : GAME_STAGES.LOBBY_STAGE)
     }
 
     if (globals.connection.connectionStatus === CONNECTION_STATES.open) {
