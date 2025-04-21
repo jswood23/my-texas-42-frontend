@@ -143,11 +143,9 @@ const NewGame = ({ globals, onChangeStage }: Props) => {
     }
 
     const startGameParams = {
-      body: {
-        match_name: matchName,
-        privacy,
-        rules
-      }
+      match_name: matchName,
+      privacy,
+      rules
     }
 
     setIsLoading(true)
