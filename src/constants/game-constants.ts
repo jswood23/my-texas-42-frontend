@@ -6,6 +6,8 @@ export const defaultGameState: GameState = {
   rules: [],
   team_1: [],
   team_2: [],
+  team_1_connected: [],
+  team_2_connected: [],
   current_round: 0,
   current_starting_bidder: 1,
   current_starting_player: 1,

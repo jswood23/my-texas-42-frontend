@@ -33,8 +33,8 @@ interface Props {
 }
 
 const defaultServerMessage: ServerMessage = {
-  gameData: defaultGameState,
-  messageType: SERVER_MESSAGE_TYPES.gameUpdate,
+  game_data: defaultGameState,
+  message_type: SERVER_MESSAGE_TYPES.gameUpdate,
   message: '',
   username: '(none)'
 }
@@ -66,10 +66,10 @@ const GameWindow = ({ globals, onChangeStage }: Props) => {
   React.useEffect(() => {
     if (globals.connection.lastMessage !== null) {
       const messageData = (JSON.parse(globals.connection.lastMessage.data) as ServerMessage)
-      const newGameState: GameState = messageData.gameData as GameState
+      const newGameState: GameState = messageData.game_data as GameState
       const gameError: string =
             messageData.message ?? 'An unknown error occurred.'
-      switch (messageData?.messageType) {
+      switch (messageData?.message_type) {
         case SERVER_MESSAGE_TYPES.gameUpdate:
           if (typeof newGameState.current_round_rules === 'string') {
             newGameState.current_round_rules = JSON.parse(
@@ -82,6 +82,12 @@ const GameWindow = ({ globals, onChangeStage }: Props) => {
         case SERVER_MESSAGE_TYPES.gameError:
           globals.openAlert(gameError, 'error')
           setLastServerMessage(messageData)
+          break
+        case SERVER_MESSAGE_TYPES.chat:
+          if (newGameState !== null) {
+            globals.setGameState(newGameState)
+            setIsLoading(false)
+          }
           break
       }
     }

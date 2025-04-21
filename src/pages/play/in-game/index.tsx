@@ -4,7 +4,6 @@ import config from '../../../constants/config'
 import * as React from 'react'
 import styled from 'styled-components'
 import GameWindow from './game-window'
-import apiUtils from '../../../utils/api-utils'
 
 const StyledRoot = styled.div(({ theme }) => ({
   display: 'flex',

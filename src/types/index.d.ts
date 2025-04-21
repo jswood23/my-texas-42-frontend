@@ -42,6 +42,8 @@ export interface GameState {
   rules: string[]
   team_1: string[]
   team_2: string[]
+  team_1_connected: bool[]
+  team_2_connected: bool[]
   current_round: number
   current_starting_bidder: number
   current_starting_player: number
@@ -59,8 +61,8 @@ export interface GameState {
 }
 
 export interface ServerMessage extends ChatMessage {
-  gameData?: GameState
-  messageType?: string
+  game_data?: GameState
+  message_type?: string
 }
 
 export interface WebSocketConnection {

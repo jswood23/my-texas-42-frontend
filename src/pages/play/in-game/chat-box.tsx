@@ -88,7 +88,7 @@ const ChatBox = ({
   React.useEffect(() => {
     if (globals.connection.lastMessage !== null) {
       const messageData = (JSON.parse(globals.connection.lastMessage.data) as ServerMessage)
-      if (messageData?.messageType === SERVER_MESSAGE_TYPES.chat) {
+      if (messageData?.message_type === SERVER_MESSAGE_TYPES.chat) {
         const newChatMessage: ChatMessage = {
           username: messageData.username,
           message: messageData.message
