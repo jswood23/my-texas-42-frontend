@@ -6,8 +6,6 @@ const environmentValues = {
   production: 'production'
 }
 
-console.log('process.env:', process.env)
-
 const config = {
   environment,
   api: {
