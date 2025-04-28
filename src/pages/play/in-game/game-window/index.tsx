@@ -43,7 +43,7 @@ const GameWindow = ({ globals, onChangeStage }: Props) => {
   const [isLoading, setIsLoading] = React.useState(true)
   const [lastServerMessage, setLastServerMessage] = React.useState(defaultServerMessage)
   const isConnected = globals.connection.connectionStatus === CONNECTION_STATES.open
-  const isLobbyFull = globals.gameState.team_1.length === 2 && globals.gameState.team_2.length === 2
+  const isGameStarted = globals.gameState.has_started
 
   React.useEffect(() => {
     switch (globals.connection.connectionStatus) {
@@ -100,10 +100,10 @@ const GameWindow = ({ globals, onChangeStage }: Props) => {
           <CircularProgress size={50} />
         </div>
       )}
-      {isConnected && !isLoading && !isLobbyFull && (
+      {isConnected && !isLoading && !isGameStarted && (
         <LobbyWaitingScreen globals={globals} />
       )}
-      {isConnected && !isLoading && isLobbyFull && (
+      {isConnected && !isLoading && isGameStarted && (
         <GameDisplay globals={globals} lastServerMessage={lastServerMessage} />
       )}
     </StyledRoot>

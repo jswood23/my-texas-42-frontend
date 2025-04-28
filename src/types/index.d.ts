@@ -58,6 +58,7 @@ export interface GameState {
   total_round_history: string[]
 
   player_dominoes: string[]
+  has_started: boolean
 }
 
 export interface ServerMessage extends ChatMessage {

@@ -14,13 +14,15 @@ export const defaultGameState: GameState = {
   current_player_turn: 1,
   current_is_bidding: false,
   current_round_rules: '',
-  player_dominoes: [],
   current_team_1_round_score: 0,
   current_team_2_round_score: 0,
   current_team_1_total_score: 0,
   current_team_2_total_score: 0,
   current_round_history: [],
-  total_round_history: []
+  total_round_history: [],
+
+  player_dominoes: [],
+  has_started: false
 }
 
 export const MOVE_TYPES = {
