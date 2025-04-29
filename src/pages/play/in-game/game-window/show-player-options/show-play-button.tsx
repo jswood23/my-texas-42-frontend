@@ -16,7 +16,10 @@ const ShowPlayButton = ({ globals, windowHeight, windowWidth, stagedDomino, setH
   const disablePlayButton = React.useMemo(() => { return !stagedDomino }, [stagedDomino])
 
   const onClickPlay = () => {
-    globals.connection.sendJsonMessage({ action: 'play_turn', data: JSON.stringify({ move: stagedDomino?.type, moveType: MOVE_TYPES.play }) })
+    // globals.connection.sendJsonMessage({ action: 'play_turn', data: JSON.stringify({ move: stagedDomino?.type, moveType: MOVE_TYPES.play }) })
+    const domino = stagedDomino?.type ?? ''
+    const move = MOVE_TYPES.play + '/' + domino
+    globals.connection.sendJsonMessage({ action: 'play_turn', data: move })
     setHasPlayed(true)
   }
 
