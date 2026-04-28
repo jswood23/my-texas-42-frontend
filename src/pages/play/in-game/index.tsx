@@ -1,4 +1,3 @@
-import { CONNECTION_STATES, GAME_STAGES } from '../../../constants'
 import type { GlobalObj } from '../../../types'
 import ChatBox from './chat-box'
 import config from '../../../constants/config'
@@ -24,8 +23,8 @@ const InGame = ({ globals, inviteCode, onChangeStage, teamNumber }: Props) => {
       const queryParams = {
         match_invite_code: inviteCode,
         team_number: teamNumber,
-        user_id: globals.userData.attributes.sub,
-        username: globals.userData.username
+        username: globals.userData.username,
+        sub: globals.userData.attributes.sub
       }
 
       globals.connection.setQueryParams(queryParams)

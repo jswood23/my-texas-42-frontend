@@ -33,8 +33,8 @@ interface Props {
 }
 
 const defaultServerMessage: ServerMessage = {
-  gameData: defaultGameState,
-  messageType: SERVER_MESSAGE_TYPES.gameUpdate,
+  game_data: defaultGameState,
+  message_type: SERVER_MESSAGE_TYPES.gameUpdate,
   message: '',
   username: '(none)'
 }
@@ -43,7 +43,7 @@ const GameWindow = ({ globals, onChangeStage }: Props) => {
   const [isLoading, setIsLoading] = React.useState(true)
   const [lastServerMessage, setLastServerMessage] = React.useState(defaultServerMessage)
   const isConnected = globals.connection.connectionStatus === CONNECTION_STATES.open
-  const isLobbyFull = globals.gameState.team_1.length === 2 && globals.gameState.team_2.length === 2
+  const isGameStarted = globals.gameState.has_started
 
   React.useEffect(() => {
     switch (globals.connection.connectionStatus) {
@@ -66,10 +66,10 @@ const GameWindow = ({ globals, onChangeStage }: Props) => {
   React.useEffect(() => {
     if (globals.connection.lastMessage !== null) {
       const messageData = (JSON.parse(globals.connection.lastMessage.data) as ServerMessage)
-      const newGameState: GameState = messageData.gameData as GameState
+      const newGameState: GameState = messageData.game_data as GameState
       const gameError: string =
             messageData.message ?? 'An unknown error occurred.'
-      switch (messageData?.messageType) {
+      switch (messageData?.message_type) {
         case SERVER_MESSAGE_TYPES.gameUpdate:
           if (typeof newGameState.current_round_rules === 'string') {
             newGameState.current_round_rules = JSON.parse(
@@ -83,6 +83,12 @@ const GameWindow = ({ globals, onChangeStage }: Props) => {
           globals.openAlert(gameError, 'error')
           setLastServerMessage(messageData)
           break
+        case SERVER_MESSAGE_TYPES.chat:
+          if (newGameState !== null) {
+            globals.setGameState(newGameState)
+            setIsLoading(false)
+          }
+          break
       }
     }
   }, [globals.connection.lastMessage])
@@ -94,10 +100,10 @@ const GameWindow = ({ globals, onChangeStage }: Props) => {
           <CircularProgress size={50} />
         </div>
       )}
-      {isConnected && !isLoading && !isLobbyFull && (
+      {isConnected && !isLoading && !isGameStarted && (
         <LobbyWaitingScreen globals={globals} />
       )}
-      {isConnected && !isLoading && isLobbyFull && (
+      {isConnected && !isLoading && isGameStarted && (
         <GameDisplay globals={globals} lastServerMessage={lastServerMessage} />
       )}
     </StyledRoot>

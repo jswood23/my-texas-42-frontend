@@ -45,7 +45,8 @@ const ShowBiddingOptions = ({ globals, windowHeight, windowWidth, setHasPlayed }
   }, [showNumericBid])
 
   const makeBid = React.useCallback((bid: number) => {
-    globals.connection.sendJsonMessage({ action: 'play_turn', data: JSON.stringify({ move: bid, moveType: MOVE_TYPES.bid }) })
+    const move = MOVE_TYPES.bid + '/' + bid.toString()
+    globals.connection.sendJsonMessage({ action: 'play_turn', data: move })
     setHasPlayed(true)
   }, [globals.connection, setHasPlayed])
 

@@ -6,7 +6,11 @@ import config from './constants/config'
 
 function App () {
   React.useEffect(() => {
-    document.title = config.environment === 'production' ? 'MyTexas42' : 'Staging | MyTexas42'
+    document.title = config.environment === 'production'
+      ? 'MyTexas42'
+      : config.environment === 'staging'
+        ? 'Staging | MyTexas42'
+        : 'Dev | MyTexas42'
   }, [])
 
   return (

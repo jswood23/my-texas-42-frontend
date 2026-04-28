@@ -1,6 +1,5 @@
 import { AccountCircle, Login, Logout, PersonAdd, KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material'
 import { AppBar, Toolbar, CssBaseline } from '@material-ui/core'
-import { Auth } from 'aws-amplify'
 import { Button, Container, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material'
 import type { GlobalObj } from '../../types'
 import { makeStyles } from '@material-ui/core/styles'

@@ -10,7 +10,6 @@ import ApiUtils from '../../../utils/api-utils'
 import { type LoginResponseAPIModel } from '../../../types/api-models'
 import {
   passwordFormRequirements,
-  usernameFormRequirements,
   usernameOrEmailFormRequirements
 } from '../../../constants/forms'
 import { isAllWhitespace } from '../../../utils/string-utils'
@@ -155,12 +154,23 @@ const LoginPage = ({ globals }: Props) => {
       globals.openAlert('Signed in successfully!', 'success')
       goToHome()
     } catch (error: any) {
+      console.log('right here officer')
       let errorMessage = 'An error occurred while signing in.'
       if (error) {
         errorMessage = error.message
-        if (error.message === 'User is not confirmed.') {
-          setConfirmingUser(true)
-        }
+        const expectedErrorMessages = [
+          'User is not confirmed.',
+          'Incorrect username or password.'
+        ]
+        expectedErrorMessages.forEach((e: string) => {
+          if (errorMessage.includes(e)) {
+            errorMessage = e
+
+            if (e === expectedErrorMessages[0]) {
+              setConfirmingUser(true)
+            }
+          }
+        })
       }
       globals.openAlert(errorMessage, 'error')
     }

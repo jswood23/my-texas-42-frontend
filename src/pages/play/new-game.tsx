@@ -1,9 +1,9 @@
-import { API } from 'aws-amplify'
-import { apiContext, GAME_STAGES } from '../../constants'
+import { GAME_STAGES } from '../../constants'
 import { Button, Checkbox, CircularProgress, Divider, FormControl, FormControlLabel, FormGroup, InputLabel, MenuItem, TextField, Tooltip, Typography } from '@mui/material'
 import type { GlobalObj, Rule } from '../../types'
 import { RULES } from '../../constants/rules'
 import { validateField } from '../../utils/user-utils'
+import apiUtils from '../../utils/api-utils'
 import Select, { type SelectChangeEvent } from '@mui/material/Select'
 import styled from 'styled-components'
 import React from 'react'
@@ -84,7 +84,7 @@ interface Props {
 
 const NewGame = ({ globals, onChangeStage }: Props) => {
   const [matchName, setMatchName] = React.useState('')
-  const [privacy, setPrivacy] = React.useState(1)
+  const [privacy, setPrivacy] = React.useState('public')
   const [errors, setErrors] = React.useState({
     hasError: false,
     matchName: null
@@ -128,7 +128,7 @@ const NewGame = ({ globals, onChangeStage }: Props) => {
   }
 
   const onChangePrivacy = (e: SelectChangeEvent) => {
-    setPrivacy(+e.target.value)
+    setPrivacy(e.target.value)
   }
 
   const onClickBack = () => {
@@ -143,15 +143,13 @@ const NewGame = ({ globals, onChangeStage }: Props) => {
     }
 
     const startGameParams = {
-      body: {
-        matchName,
-        privacy,
-        rules
-      }
+      match_name: matchName,
+      privacy,
+      rules
     }
 
     setIsLoading(true)
-    await API.put(apiContext, '/start_lobby', startGameParams)
+    await apiUtils.post('/games', startGameParams)
       .then((response) => {
         // eslint-disable-next-line @typescript-eslint/naming-convention
         const { match_invite_code } = response ?? { match_invite_code: '' }
@@ -246,9 +244,9 @@ const NewGame = ({ globals, onChangeStage }: Props) => {
             value={privacy.toString()}
             onChange={onChangePrivacy}
           >
-            <MenuItem value={1}>Public</MenuItem>
-            <MenuItem value={2}>Friends only</MenuItem>
-            <MenuItem value={3}>Invite only</MenuItem>
+            <MenuItem value={'public'}>Public</MenuItem>
+            <MenuItem value={'friends'}>Friends only</MenuItem>
+            <MenuItem value={'private'}>Invite only</MenuItem>
           </Select>
         </FormControl>
         <FormGroup className="rules-container">

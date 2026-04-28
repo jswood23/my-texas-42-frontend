@@ -1,10 +1,12 @@
 import { Alert, Button, CircularProgress, FormControl, TextField } from '@mui/material'
-import { Auth } from 'aws-amplify'
 import { useNavigate } from 'react-router-dom'
 import type { GlobalObj } from '../../types'
 import { validateField } from '../../utils/user-utils'
 import * as React from 'react'
 import styled from 'styled-components'
+import apiUtils from '../../utils/api-utils'
+import type { LoginResponseAPIModel } from '../../types/api-models'
+import ApiUtils from '../../utils/api-utils'
 
 const StyledFormControl = styled(FormControl)(({ theme }) => ({
   '.form-text-input': {
@@ -115,9 +117,17 @@ const ConfirmUserForm = ({
     try {
       setIsLoading(true)
 
-      await Auth.confirmSignUp(defaultUsername, verificationCode)
+      await apiUtils.put('/users/confirm', {
+        username: defaultUsername,
+        verificationcode: verificationCode
+      })
 
-      await Auth.signIn(defaultUsername, defaultPassword)
+      const response: LoginResponseAPIModel = await ApiUtils.post('/users/login', {
+        username: defaultUsername,
+        password: defaultPassword
+      })
+
+      ApiUtils.setToken(response.token)
 
       globals.openAlert('Signed in successfully!', 'success')
 
@@ -143,7 +153,8 @@ const ConfirmUserForm = ({
 
   const onResend = React.useCallback(async () => {
     try {
-      await Auth.resendSignUp(defaultUsername)
+      await apiUtils.post('/users/resend-confirmation', { username: defaultUsername })
+
       globals.openAlert(
         'The verification code has been resent. Remember to check your spam folder.',
         'info'

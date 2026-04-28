@@ -3,7 +3,6 @@ import { MOVE_TYPES } from '../../../../../constants/game-constants'
 import { pos } from '../utils/helpers'
 import * as React from 'react'
 import GameButton from '../../../../../shared/game-button'
-import GameSpinner from '../../../../../shared/game-spinner'
 
 interface Props {
   globals: GlobalObj
@@ -17,7 +16,10 @@ const ShowPlayButton = ({ globals, windowHeight, windowWidth, stagedDomino, setH
   const disablePlayButton = React.useMemo(() => { return !stagedDomino }, [stagedDomino])
 
   const onClickPlay = () => {
-    globals.connection.sendJsonMessage({ action: 'play_turn', data: JSON.stringify({ move: stagedDomino?.type, moveType: MOVE_TYPES.play }) })
+    // globals.connection.sendJsonMessage({ action: 'play_turn', data: JSON.stringify({ move: stagedDomino?.type, moveType: MOVE_TYPES.play }) })
+    const domino = stagedDomino?.type ?? ''
+    const move = MOVE_TYPES.play + '/' + domino
+    globals.connection.sendJsonMessage({ action: 'play_turn', data: move })
     setHasPlayed(true)
   }
 

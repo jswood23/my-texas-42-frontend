@@ -1,7 +1,7 @@
 import {
   defaultDominoObj,
   getShuffledDominoes,
-  getStartingDominoes, getUserDominoes,
+  getUserDominoes,
   placePlayerHand,
   setCurrentDominoPositions,
   showEndOfTrick,
@@ -58,12 +58,6 @@ const ShowDominoes = ({ globals, windowHeight, windowWidth, lastMessage, stagedD
       }, 500)
     }, 1500)
   }, [setDominoes])
-
-  const moveDomino = React.useCallback((newDomino: DominoObj) => {
-    const newDominoes = [...dominoes]
-    newDominoes[newDomino.index] = newDomino
-    setDominoes(newDominoes)
-  }, [dominoes, setDominoes])
 
   const moveDominoes = React.useCallback((...movedDominoes: DominoObj[]) => {
     const newDominoes = [...dominoes]

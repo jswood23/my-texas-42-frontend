@@ -33,7 +33,7 @@ const ShowPlayerOptions = ({ globals, windowHeight, windowWidth, stagedDomino, l
   }, [globals.gameState.current_is_bidding, globals.gameState.current_round_rules])
 
   React.useEffect(() => {
-    if (lastServerMessage?.messageType === SERVER_MESSAGE_TYPES.gameError) {
+    if (lastServerMessage?.message_type === SERVER_MESSAGE_TYPES.gameError) {
       setHasPlayed(false)
     }
   }, [lastServerMessage])

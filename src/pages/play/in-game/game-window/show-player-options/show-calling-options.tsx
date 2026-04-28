@@ -30,7 +30,9 @@ const ShowCallingOptions = ({ globals, windowHeight, windowWidth, setHasPlayed }
         call = call.toString()
       }
 
-      globals.connection.sendJsonMessage({ action: 'play_turn', data: JSON.stringify({ move: call, moveType: MOVE_TYPES.call }) })
+      const move = MOVE_TYPES.call + '/' + call
+
+      globals.connection.sendJsonMessage({ action: 'play_turn', data: move })
       setHasPlayed(true)
     }
   }

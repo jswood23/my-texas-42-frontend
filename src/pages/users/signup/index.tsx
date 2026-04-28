@@ -1,5 +1,4 @@
 import { Alert, Button, CircularProgress, Collapse, FormControl, TextField } from '@mui/material'
-import { Auth } from 'aws-amplify'
 import { type GlobalObj, type TextFieldObj } from '../../../types'
 import { validateField } from '../../../utils/user-utils'
 import * as React from 'react'
@@ -12,6 +11,7 @@ import {
   newPasswordFormRequirements,
   usernameFormRequirements
 } from '../../../constants/forms'
+import apiUtils from '../../../utils/api-utils'
 
 const StyledRoot = styled.div(({ theme }) => ({
   width: '100%',
@@ -150,16 +150,12 @@ const SignupPage = ({ globals }: Props) => {
     const modelFields = {
       email,
       password,
-      username,
-      attributes: {
-        email
-      }
+      username
     }
 
     try {
       setIsLoading(true)
-      // const { user } = await Auth.signUp(modelFields);
-      await Auth.signUp(modelFields)
+      await apiUtils.post('/users', modelFields)
       setConfirmingUser(true)
     } catch (error: any) {
       let errorMessage = 'An error occurred while creating an account.'

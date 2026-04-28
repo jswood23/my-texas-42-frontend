@@ -20,11 +20,23 @@ const request = async (method: string, path: string, body?: any) => {
   })
 
   if (!response.ok) {
+    if (response.body) {
+      const errorResponse = await response.json()
+      if (errorResponse.message) {
+        if (errorResponse.reason) {
+          throw new Error(`${errorResponse.message}: ${errorResponse.reason}`)
+        }
+        throw new Error(errorResponse.message)
+      }
+    }
+
     throw new Error(`Failed to ${method} ${fullPath}`)
   }
 
   return await response.json()
 }
+
+const getToken = () => token
 
 const setToken = (newToken: string) => {
   token = newToken
@@ -48,6 +60,7 @@ const del = async (path: string) => {
 }
 
 const ApiUtils = {
+  getToken,
   setToken,
   post,
   put,

@@ -2,6 +2,7 @@ import { Button, CircularProgress, Typography } from '@mui/material'
 import { EMPTY_MEMBER_TEXT } from '../../../../constants'
 import type { GlobalObj } from '../../../../types'
 import * as React from 'react'
+import SignalWifiStatusbarConnectedNoInternet4Icon from '@mui/icons-material/SignalWifiStatusbarConnectedNoInternet4'
 import styled from 'styled-components'
 
 const StyledRoot = styled.div(({ theme }) => ({
@@ -74,7 +75,7 @@ const LobbyWaitingScreen = ({ globals }: Props) => {
   const isOtherTeamFull = (currentTeam === 1 && globals.gameState.team_2.length === 2) || (currentTeam === 2 && globals.gameState.team_1.length === 2)
   const disableSwitchTeamsButton = switchingTeams || isOtherTeamFull
 
-  const displayTeam = (teamMembers: string[]) => {
+  const displayTeam = React.useCallback((teamMembers: string[], teamConnected: boolean[]) => {
     const withEmpty = Object.assign([], teamMembers)
     while (withEmpty.length < 2) {
       withEmpty.push(EMPTY_MEMBER_TEXT)
@@ -82,18 +83,24 @@ const LobbyWaitingScreen = ({ globals }: Props) => {
 
     let i = 0
     return withEmpty.map((teamMember: string) => {
-      i += 1
       const isEmpty = teamMember === EMPTY_MEMBER_TEXT
+      const isDisconnected = isEmpty ? false : !teamConnected[i]
+      const c = teamConnected[i]
+      console.log({ teamMember, isDisconnected, c })
+      i += 1
       return (
-        <Typography
-          key={`team-member-${i}`}
-          className={isEmpty ? 'team-member-empty' : 'team-member-text'}
-        >
-          {teamMember}
-        </Typography>
+        <>
+          <Typography
+            key={`team-member-${i}`}
+            className={isEmpty ? 'team-member-empty' : 'team-member-text'}
+          >
+            {isDisconnected && <SignalWifiStatusbarConnectedNoInternet4Icon/>}
+            {teamMember}
+          </Typography>
+        </>
       )
     })
-  }
+  }, [globals.gameState.team_1, globals.gameState.team_2, globals.gameState.team_1_connected, globals.gameState.team_2_connected])
 
   const onClickSwitchTeams = () => {
     if (!isOtherTeamFull) {
@@ -112,11 +119,11 @@ const LobbyWaitingScreen = ({ globals }: Props) => {
       <div className='teams-container'>
         <div className='single-team-container'>
           <Typography className='team-title-text'>Team 1</Typography>
-          {displayTeam(globals.gameState.team_1)}
+          {displayTeam(globals.gameState.team_1, globals.gameState.team_1_connected)}
         </div>
         <div className='single-team-container'>
           <Typography className='team-title-text'>Team 2</Typography>
-          {displayTeam(globals.gameState.team_2)}
+          {displayTeam(globals.gameState.team_2, globals.gameState.team_2_connected)}
         </div>
       </div>
       <Button

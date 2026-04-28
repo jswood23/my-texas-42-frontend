@@ -1,7 +1,6 @@
 import type { GameState, DominoObj } from '../../../../../types'
 import { getUserPosition } from './get-game-information'
 import { pos } from './helpers'
-import type React from 'react'
 
 export const defaultDominoObj: DominoObj = {
   belongsToTrick: -1,
