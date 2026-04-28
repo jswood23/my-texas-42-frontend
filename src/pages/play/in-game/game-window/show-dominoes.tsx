@@ -41,12 +41,15 @@ const ShowDominoes = ({ globals, windowHeight, windowWidth, lastMessage, stagedD
 
   let tempDominoes = dominoes
 
-  const startNewRound = React.useCallback(() => {
+  const startNewRound = () => {
     setTimeout(() => {
       const newDominoes = getUserDominoes(globals.gameState.player_dominoes, windowWidth, windowHeight, playerDominoSize, otherDominoSize)
       setDominoes(newDominoes)
       setPlayerHand(newDominoes.slice(0, 7))
       setStagedDomino(null)
+      setOtherStagedDominoes([])
+      setTeam1Tricks(0)
+      setTeam2Tricks(0)
 
       setTimeout(() => {
         // speed up animations after half a second
@@ -57,7 +60,7 @@ const ShowDominoes = ({ globals, windowHeight, windowWidth, lastMessage, stagedD
         setDominoes(spedUpDominoes)
       }, 500)
     }, 1500)
-  }, [setDominoes])
+  }
 
   const moveDominoes = React.useCallback((...movedDominoes: DominoObj[]) => {
     const newDominoes = [...dominoes]
@@ -141,7 +144,7 @@ const ShowDominoes = ({ globals, windowHeight, windowWidth, lastMessage, stagedD
       }
 
       if (shouldShowPlayerMove) {
-        showLastPlayerMove(windowWidth, windowHeight, otherDominoSize, tempDominoes, globals.gameState, moveDominoes, messageToShow, userPosition, otherStagedDominoes, setOtherStagedDominoes, dominoes.length === 0)
+        showLastPlayerMove(windowWidth, windowHeight, otherDominoSize, tempDominoes, globals.gameState, moveDominoes, messageToShow, userPosition, setOtherStagedDominoes, dominoes.length === 0)
       }
     }
   }, [globals.gameState, lastMessage, userPosition])

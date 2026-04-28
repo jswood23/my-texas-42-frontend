@@ -32,7 +32,7 @@ const shuffleList = (oldList: any[]) => {
 }
 
 const getTrickXPos = (winningTeam: number, trickDominoSize: number, teamTricks: number) => (winningTeam - 1) * 70 + trickDominoSize * teamTricks
-const trickYPos = 20
+const trickYPos = 23
 
 export const getShuffledDominoes = (windowWidth: number, windowHeight: number, dominoSize: number) => {
   const allDominoes: DominoObj[] = []
@@ -188,8 +188,7 @@ const showPlayerMove = (
   moveDominoes: (...newDominoes: DominoObj[]) => void,
   gameUpdateMessage: string,
   userPosition: number,
-  otherStagedDominoes: DominoObj[],
-  setOtherStagedDominoes: (newStagedDominoes: DominoObj[]) => void,
+  setOtherStagedDominoes: (update: DominoObj[] | ((prev: DominoObj[]) => DominoObj[])) => void,
   shouldSetAllDominoes: boolean
 ) => {
   const splitMessage = gameUpdateMessage.split('\\')
@@ -211,7 +210,7 @@ const showPlayerMove = (
         } else {
           moveDominoes(newDomino)
         }
-        setOtherStagedDominoes([...otherStagedDominoes, newDomino])
+        setOtherStagedDominoes(prev => [...prev, newDomino])
         break
       }
     }
@@ -220,7 +219,7 @@ const showPlayerMove = (
     thisDomino.placement.startingX = pos(50, windowWidth)
     thisDomino.placement.startingY = pos(50 + otherDominoSize * 1.1, windowHeight)
     dominoes[thisDomino.index] = thisDomino
-    setOtherStagedDominoes([...otherStagedDominoes, thisDomino])
+    setOtherStagedDominoes(prev => [...prev, thisDomino])
   }
 
   if (shouldSetAllDominoes) {
@@ -237,10 +236,9 @@ export const showLastPlayerMove = (
   moveDominoes: (...newDominoes: DominoObj[]) => void,
   lastMessage: string,
   userPosition: number,
-  otherStagedDominoes: DominoObj[],
-  setOtherStagedDominoes: (newStagedDominoes: DominoObj[]) => void,
+  setOtherStagedDominoes: (update: DominoObj[] | ((prev: DominoObj[]) => DominoObj[])) => void,
   shouldSetAllDominoes: boolean
-) => { showPlayerMove(windowWidth, windowHeight, otherDominoSize, dominoes, gameState, moveDominoes, lastMessage, userPosition, otherStagedDominoes, setOtherStagedDominoes, shouldSetAllDominoes) }
+) => { showPlayerMove(windowWidth, windowHeight, otherDominoSize, dominoes, gameState, moveDominoes, lastMessage, userPosition, setOtherStagedDominoes, shouldSetAllDominoes) }
 
 const moveTrickToScoreBoard = (
   dominoes: DominoObj[],
@@ -253,12 +251,12 @@ const moveTrickToScoreBoard = (
   teamTricks: number,
   winningTeam: number
 ) => {
-  const trickDominoes = trickDominoIndices.map(i => dominoes[i])
+  const trickDominoes = trickDominoIndices.map(i => dominoes[i]).filter((d): d is DominoObj => d !== undefined)
 
   const allCount: DominoObj[] = []
   const allNonCount: DominoObj[] = []
 
-  for (let i = 0; i < 4; i += 1) {
+  for (let i = 0; i < trickDominoes.length; i += 1) {
     const sides = trickDominoes[i].type.split('-')
     const sideSum = (+sides[0]) + (+sides[1])
     if (sideSum % 5 === 0) {
@@ -321,7 +319,9 @@ export const showEndOfTrick = (
 ) => {
   const trickXPos = getTrickXPos(winningTeam, trickDominoSize, teamTricks)
 
-  const trickDominoIndices = [stagedDomino, ...otherStagedDominoes].map(d => d.index)
+  const trickDominoIndices = [stagedDomino, ...otherStagedDominoes]
+    .filter((d): d is DominoObj => d !== null && d !== undefined)
+    .map(d => d.index)
 
   const newDominoes = moveTrickToScoreBoard(dominoes, trickDominoIndices, trickDominoSize, trickXPos, trickYPos, windowWidth, windowHeight, teamTricks, winningTeam)
 
@@ -351,8 +351,8 @@ export const setCurrentDominoPositions = (
   }
 
   let newOtherStagedDominoes: DominoObj[] = []
-  const setNewStagedDominoes = (newStagedDominoes: DominoObj[]) => {
-    newOtherStagedDominoes = newStagedDominoes
+  const setNewStagedDominoes = (update: DominoObj[] | ((prev: DominoObj[]) => DominoObj[])) => {
+    newOtherStagedDominoes = typeof update === 'function' ? update(newOtherStagedDominoes) : update
   }
 
   let team1Tricks = 0
@@ -379,7 +379,7 @@ export const setCurrentDominoPositions = (
     }
 
     if (move.split('\\')[1] !== 'play') return
-    showPlayerMove(windowWidth, windowHeight, otherDominoSize, newDominoes, gameState, setNewDominoes, move, userPosition, newOtherStagedDominoes, setNewStagedDominoes, false)
+    showPlayerMove(windowWidth, windowHeight, otherDominoSize, newDominoes, gameState, setNewDominoes, move, userPosition, setNewStagedDominoes, false)
   })
 
   setTeam1Tricks(team1Tricks)
