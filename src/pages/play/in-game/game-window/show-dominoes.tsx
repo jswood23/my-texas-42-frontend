@@ -34,6 +34,7 @@ const ShowDominoes = ({ globals, windowHeight, windowWidth, lastMessage, stagedD
   const [team1Tricks, setTeam1Tricks] = React.useState(0)
   const [team2Tricks, setTeam2Tricks] = React.useState(0)
   const [isEndOfTrick, setIsEndOfTrick] = React.useState(false)
+  const lastProcessedMessage = React.useRef<string | null>(null)
 
   const playerDominoSize = 10
   const otherDominoSize = 8
@@ -121,8 +122,10 @@ const ShowDominoes = ({ globals, windowHeight, windowWidth, lastMessage, stagedD
 
   React.useEffect(() => {
     if (globals.gameState.current_round_history.length > 0) {
-      tempDominoes = setCurrentDominoPositions(windowWidth, windowHeight, trickDominoSize, playerDominoSize, otherDominoSize, globals.gameState, userPosition, setOtherStagedDominoes, setTeam1Tricks, setTeam2Tricks)
+      tempDominoes = setCurrentDominoPositions(windowWidth, windowHeight, trickDominoSize, playerDominoSize, otherDominoSize, globals.gameState, userPosition, setOtherStagedDominoes, setStagedDomino, setTeam1Tricks, setTeam2Tricks)
       setDominoes(tempDominoes)
+      setPlayerHand(tempDominoes.slice(0, globals.gameState.player_dominoes.length))
+      lastProcessedMessage.current = lastMessage
     }
   }, [])
 
@@ -130,7 +133,10 @@ const ShowDominoes = ({ globals, windowHeight, windowWidth, lastMessage, stagedD
     if (globals.gameState.current_round_history.length === 0) {
       setDominoes(getShuffledDominoes(windowWidth, windowHeight, otherDominoSize))
       setDealingDominoes(true)
-    } else {
+      lastProcessedMessage.current = lastMessage
+    } else if (lastMessage !== lastProcessedMessage.current) {
+      lastProcessedMessage.current = lastMessage
+
       let shouldShowPlayerMove = false
       let messageToShow = lastMessage
       if (lastMessage.includes('\\')) {
@@ -170,7 +176,7 @@ const ShowDominoes = ({ globals, windowHeight, windowWidth, lastMessage, stagedD
   }, [dealingDominoes, setDealingDominoes])
 
   React.useEffect(() => {
-    if (stagedDomino !== undefined) { placePlayerHand(windowWidth, windowHeight, playerDominoSize, otherDominoSize, playerHand, stagedDomino, dominoes, setDominoes) }
+    if (playerHand.length > 0 || stagedDomino) { placePlayerHand(windowWidth, windowHeight, playerDominoSize, otherDominoSize, playerHand, stagedDomino ?? null, dominoes, setDominoes) }
   }, [stagedDomino, playerHand])
 
   const displayDominoes = () => {
